@@ -1,0 +1,9 @@
+.verify {
+    background-image: url('/images/city.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: nunito;
+    height: 100vh;
+    overflow: auto;
+}
