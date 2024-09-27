@@ -64,7 +64,6 @@ function AccountForm({ selectedImage }) {
 
   return (
     <>
-      <ToastContainer limit={3} />
       <form
         onSubmit={handleSubmit}
         className="flex justify-center gap-5 items-center flex-col"

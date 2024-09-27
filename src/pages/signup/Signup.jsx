@@ -12,7 +12,6 @@ import Input from "../../ui/Input";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { HiArrowLongRight } from "react-icons/hi2";
-import { ToastContainer } from "react-toastify";
 import { useNotification } from "../../hooks/useNotification";
 import styled, { css } from "styled-components";
 import HomeLink from "../../ui/HomeLink";
@@ -165,7 +164,6 @@ function Signup() {
 
   return (
     <>
-      <ToastContainer limit={3} />
       <AuthLayout>
         <HomeLink />
         <div className="bg-white/45 backdrop-blur-3xl z-50 rounded-3xl py-5 relative shadow-xl w-[60rem] max-w-full shadow-black/60">
@@ -269,7 +267,7 @@ function Signup() {
                 </button>
                 <Link
                   to="/login"
-                  className="text-stone-900 hover:text-teal-500 transition-all duration-300 flex justify-center items-center"
+                  className="text-stone-900 hover:text-blue-600 transition-all duration-300 flex justify-center items-center"
                 >
                   Login
                   <HiArrowLongRight size={25} />{" "}

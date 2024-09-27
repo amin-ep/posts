@@ -41,41 +41,38 @@ function EmailMessage() {
 
   return (
     <>
-      <ToastContainer limit={3} />
-      <AuthLayout>
-        <div className="flex flex-col items-center justify-center">
-          <h5 className="text-stone-100 text-2xl text-center">
-            {previousPageRoute === "/signup"
-              ? `An Email sent to ${currentEmail}. Please checkout your email account and verify your email!`
-              : "This is email message gate"}
-            {previousPageRoute === "/forgetPassword" &&
-              `An Email sent to ${currentEmail}. Please checkout email`}
-          </h5>
+      <div className="flex flex-col items-center justify-center linear-background h-dvh">
+        <h5 className="text-stone-100 text-2xl text-center">
+          {previousPageRoute === "/signup"
+            ? `An Email sent to ${currentEmail}. Please checkout your email account and verify your email!`
+            : "This is email message gate"}
+          {previousPageRoute === "/forgetPassword" &&
+            `An Email sent to ${currentEmail}. Please checkout email`}
+        </h5>
 
-          <div className="flex justify-center gap-5 mt-7 w-full">
-            <button
-              type="button"
-              className="bg-stone-800 rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
-              onClick={handleResendButtonClick}
-            >
-              {loading ? "Loading..." : "Resend"}
-            </button>
-            <Link
-              to="https://mail.google.com/mail/u/0/#inbox"
-              className={styles["mail-link"]}
-              target="_blank"
-            >
-              Go To Gmail
-              <div className={styles["span-wrapper"]}>
-                <span className={styles["s1"]}></span>
-                <span className={styles["s2"]}></span>
-                <span className={styles["s3"]}></span>
-                <span className={styles["s4"]}></span>
-              </div>
-            </Link>
-          </div>
+        <div className="flex justify-center gap-5 mt-7 w-full">
+          <button
+            type="button"
+            className="bg-stone-800 rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
+            onClick={handleResendButtonClick}
+          >
+            {loading ? "Loading..." : "Resend"}
+          </button>
+          <Link
+            to="https://mail.google.com/mail/u/0/#inbox"
+            className={styles["mail-link"]}
+            target="_blank"
+          >
+            Go To Gmail
+            <div className={styles["span-wrapper"]}>
+              <span className={styles["s1"]}></span>
+              <span className={styles["s2"]}></span>
+              <span className={styles["s3"]}></span>
+              <span className={styles["s4"]}></span>
+            </div>
+          </Link>
         </div>
-      </AuthLayout>
+      </div>
     </>
   );
 }

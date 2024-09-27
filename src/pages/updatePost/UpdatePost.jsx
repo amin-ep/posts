@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 import { useInput } from "../../hooks/useInput";
 import { validateDescription, validateTitle } from "../../utils/validators";
 import LinkButton from "../../ui/LinkButton";
-import { ToastContainer } from "react-toastify";
 import BackLink from "../../ui/BackLink";
 import { HiArrowDownTray } from "react-icons/hi2";
 
@@ -171,7 +170,7 @@ function UpdatePost() {
   return (
     <>
       <BackLink />
-      <ToastContainer limit={3} />
+
       <form
         onSubmit={handleSubmit}
         className="flex flex-col bg-white/30 px-5 py-3 rounded-2xl shadow-xl shadow-black/30 w-[45rem] max-w-[95%] h-max"

@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import AuthLayout from "../../ui/AuthLayout";
 import HomeLink from "../../ui/HomeLink";
 import { useNotification } from "../../hooks/useNotification";
-import { ToastContainer } from "react-toastify";
 
 const validatePassword = (value) =>
   value.trim().length <= 12 && value.trim().length >= 8;
@@ -65,7 +64,6 @@ function ResetPassword() {
     >
       <AuthLayout background="secondary">
         <HomeLink />
-        <ToastContainer limit={3} />
         <form
           className="p-10 w-[25rem] rounded-lg shadow-2xl bg-white/40 backdrop-blur-sm shadow-stone-900 flex flex-col gap-4"
           onSubmit={handleSubmit}

@@ -82,9 +82,9 @@ const backgrounds = {
       ),
       linear-gradient(
         90deg,
-        rgb(45, 212, 190),
-        rgb(13, 161, 144),
-        rgb(3, 110, 101)
+        rgb(30, 64, 175),
+        rgb(29, 78, 216),
+        rgb(37, 99, 235)
       );
   `,
   secondary: css`
@@ -167,9 +167,9 @@ const backgrounds = {
       ),
       linear-gradient(
         90deg,
-        rgba(45, 212, 190, 0.74),
-        rgba(13, 161, 144, 0.507),
-        rgba(3, 110, 101, 0.178)
+        rgb(30, 64, 175),
+        rgb(29, 78, 216),
+        rgb(37, 99, 235)
       );
   `,
 };

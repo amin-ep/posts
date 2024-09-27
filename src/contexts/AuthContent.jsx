@@ -11,7 +11,6 @@ import axios from "axios";
 import { BASE_URL } from "../utils/helpers";
 
 const AuthContext = createContext();
-//   const BASE_URL = "http://localhost:3000/api/v1/users";
 
 const initialState = {
   currentUserData: {},

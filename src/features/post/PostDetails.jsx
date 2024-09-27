@@ -1,0 +1,46 @@
+/* eslint-disable react/prop-types */
+import { formatDate } from "../../utils/helpers";
+import { HiOutlineCalendarDays } from "react-icons/hi2";
+import { useState } from "react";
+
+function PostDetails({ isLoading, post }) {
+  const [showMore, setShowMore] = useState(false);
+  return (
+    <>
+      <div className="px-6 py-7 border-b-[1px] border-gray-300">
+        <div className="flex flex-col-reverse gap-5 sm:flex-row justify-between items-center">
+          <h1 className="text-2xl sm:text-5xl">
+            {isLoading ? "Loading..." : post.title}
+          </h1>
+          <div className="flex items-center gap-2">
+            <p>{formatDate(post.createdAt)}</p>
+            <HiOutlineCalendarDays size={22} />
+          </div>
+        </div>
+        <p className="text-base text-center sm:text-left sm:text-lg leading-7 mt-6">
+          {isLoading ? (
+            "Loading..."
+          ) : (
+            <>
+              {post?.description?.length > 120
+                ? !showMore
+                  ? post.description?.slice(0, 120) + "...  "
+                  : post.description + "       "
+                : post?.description}
+            </>
+          )}
+          {post?.description?.length > 120 && (
+            <button
+              className="text-blue-500 hover:text-blue-600"
+              onClick={() => setShowMore((s) => !s)}
+            >
+              {!showMore ? " show more" : " show less"}
+            </button>
+          )}
+        </p>
+      </div>
+    </>
+  );
+}
+
+export default PostDetails;

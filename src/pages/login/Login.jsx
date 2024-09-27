@@ -7,12 +7,14 @@ import { validateEmail } from "../../utils/validators";
 import { validatePassword } from "../../utils/validators";
 import AuthLayout from "../../ui/AuthLayout";
 import { useNotification } from "../../hooks/useNotification";
-import { ToastContainer } from "react-toastify";
 import HomeLink from "../../ui/HomeLink";
+import EyeButton from "../../ui/EyeButton";
+import { useState } from "react";
 
 function Login() {
   const { login, loading } = useAuthentication();
   const { notify } = useNotification();
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -47,12 +49,12 @@ function Login() {
       notify("error", result.message);
     } else {
       navigate("/dashboard");
+      notify("success", `Welcome to your account ${result.data.username}`);
     }
   };
 
   return (
     <>
-      <ToastContainer limit={3} />
       <AuthLayout background="primary">
         <HomeLink />
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -74,17 +76,23 @@ function Login() {
             background="bg-white"
             hasError={emailHasError}
           />
-
-          <Input
-            id="password"
-            placeholder="Password"
-            onBlur={handlePasswordBlur}
-            onChange={handlePasswordChange}
-            value={enteredPassword}
-            type="password"
-            hasError={passwordHasError}
-            background="bg-white"
-          />
+          <div className="relative">
+            <EyeButton
+              isShown={showPassword}
+              onClick={() => setShowPassword((show) => !show)}
+              extraStyles="top-[11px] right-4"
+            />
+            <Input
+              id="password"
+              placeholder="Password"
+              onBlur={handlePasswordBlur}
+              onChange={handlePasswordChange}
+              value={enteredPassword}
+              type={showPassword ? "text" : "password"}
+              hasError={passwordHasError}
+              background="bg-white"
+            />
+          </div>
 
           <div className="flex">
             <button

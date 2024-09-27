@@ -12,7 +12,6 @@ import Cookies from "js-cookie";
 import styles from "./PostActions.module.css";
 import { BASE_URL } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
 import LinkButton from "../../ui/LinkButton";
 
 function PostActions({ setOpenModal, postId, likes }) {
@@ -74,13 +73,11 @@ function PostActions({ setOpenModal, postId, likes }) {
       } items-center`}
     >
       {isLoggedIn && currentUserData?.role === "admin" ? (
-        <div className="flex">
-          <LinkButton background="teal" to={`/update-post/${postId}`}>
-            <div className="flex items-center justify-center gap-3">
-              <span>Update Post</span>
-              <HiOutlinePencilSquare />
-            </div>
+        <div className="flex items-center justify-center gap-3 w-full">
+          <LinkButton background="blue" to={`/update-post/${postId}`}>
+            Update Post
           </LinkButton>
+          <LinkButton background="red">Delete Post</LinkButton>
         </div>
       ) : (
         ""

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../ui/AuthLayout";
 import HomeLink from "../../ui/HomeLink";
 import LinkButton from "../../ui/LinkButton";
-import { ToastContainer } from "react-toastify";
 import { useNotification } from "../../hooks/useNotification";
 
 const validatePassword = (value) =>
@@ -62,7 +61,6 @@ function ChangePassword() {
   return (
     <>
       <AuthLayout>
-        <ToastContainer limit={3} />
         <HomeLink />
         <form
           onSubmit={handleSubmit}

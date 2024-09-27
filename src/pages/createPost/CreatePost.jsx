@@ -2,11 +2,10 @@ import { useState } from "react";
 import Input from "../../ui/Input";
 import { useInput } from "../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCreatePost } from "../post/postSlice";
+import { fetchCreatePost } from "../../features/post/postSlice";
 import FileInput from "../../ui/FileInput";
 import { validateTitle, validateDescription } from "../../utils/validators";
 import { useNotification } from "../../hooks/useNotification";
-import { ToastContainer } from "react-toastify";
 
 function CreatePost() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -57,7 +56,7 @@ function CreatePost() {
     const result = await dispatch(fetchCreatePost(payload));
 
     if (result.status === "success") {
-      notify("success", "Your post uploaded successfully");
+      notify("success", "Your post created successfully");
     }
   };
 
@@ -67,7 +66,6 @@ function CreatePost() {
 
   return (
     <>
-      <ToastContainer limit={3} />
       <div className="bg-white/50 backdrop-blur-md shadow-lg shadow-black/45 w-[50rem] max-w-[95%] h-min rounded-md">
         <header className="text-center py-5">
           <h1 className="text-4xl"> Create Post</h1>

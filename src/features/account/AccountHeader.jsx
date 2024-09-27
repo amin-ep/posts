@@ -45,7 +45,7 @@ function AccountHeader({ selectedImage, handleFileChange }) {
             height={144}
             loading="lazy"
           />
-          <div className="absolute w-14 h-14 flex items-center justify-center rounded-full cursor-pointer left-32 bottom-20 bg-teal-500 text-2xl text-black">
+          <div className="absolute w-14 h-14 flex items-center justify-center rounded-full cursor-pointer left-32 bottom-20 bg-blue-500 text-2xl text-black">
             <HiMiniArrowUpTray className="z-20 cursor-pointer" />
             <input
               type="file"

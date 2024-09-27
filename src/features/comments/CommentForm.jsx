@@ -51,7 +51,6 @@ function CommentForm({ postId, replyTo }) {
 
   return (
     <>
-      <ToastContainer limit={3} />
       <form onSubmit={handleSubmit} className="hidden sm:block">
         <header className="text-stone-900 py-4 flex justify-between items-center">
           <h2 className="text-3xl">Leave Your Comment Here</h2>
@@ -74,7 +73,7 @@ function CommentForm({ postId, replyTo }) {
           </p>
         )}
         <button
-          className="bg-teal-600 rounded-full px-5 py-3 text-white disabled:cursor-not-allowed w-2/12"
+          className="bg-blue-600 rounded-full px-5 py-3 text-white disabled:cursor-not-allowed w-2/12"
           type="submit"
           disabled={!formIsValid}
         >
@@ -95,7 +94,7 @@ function CommentForm({ postId, replyTo }) {
         ></textarea>
         <button
           type="submit"
-          className="bg-teal-500 hover:bg-teal-600 focus:bg-teal-600 outline-none flex items-center justify-center w-16 h-16"
+          className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 outline-none flex items-center justify-center w-16 h-16"
         >
           <IoSendOutline size={23} />
         </button>

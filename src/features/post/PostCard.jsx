@@ -8,7 +8,7 @@ function PostCard({ image, title, description, likes, comments, id }) {
       <img
         src={`http://localhost:3000/static/posts/${image}`}
         alt={title}
-        className="rounded-t-md w-full h-44 object-cover object-center border-b-teal-600 border-b-[5px]"
+        className="rounded-t-md w-full h-44 object-cover object-center border-b-blue-600 border-b-[5px]"
       />
       <div className="flex items-center justify-evenly">
         <span className="flex items-center gap-1">
@@ -32,7 +32,7 @@ function PostCard({ image, title, description, likes, comments, id }) {
       <div className="flex items-center justify-center py-4">
         <Link
           to={`/post/${id}`}
-          className="bg-teal-600 text-white px-5 py-3 rounded-md hover:shadow-2xl transition-all hover:bg-teal-700"
+          className="bg-blue-600 text-white px-5 py-3 rounded-md hover:shadow-2xl transition-all hover:bg-blue-700"
         >
           View More
         </Link>

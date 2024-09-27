@@ -45,7 +45,7 @@ function AlertModal({ title, description, onDelete, onClose, isOpen }) {
         </LinkButton>
         <LinkButton
           type="button"
-          background="teal"
+          background="blue"
           onClick={onClose}
           width="50%"
         >

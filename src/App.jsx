@@ -1,25 +1,32 @@
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import PageLoader from "./ui/PageLoader/PageLoader";
-import Dashboard from "./features/dashboard/Dashboard";
-import Login from "./features/login/Login";
-import Signup from "./features/signup/Signup";
-import ForgetPassword from "./features/forgetPassword/ForgetPassword";
-import Users from "./pages/users/Users";
-import Layout from "./layout/Layout";
-import CreatePost from "./features/createPost/CreatePost";
 import { AuthProvider } from "./contexts/AuthContent";
-import Post from "./features/post/Post";
-import EmailGate from "./pages/EmailGate/EmailGate";
-import Verify from "./pages/verify/Verify";
-import Account from "./pages/account/Account";
-import ChangePassword from "./pages/changePassword/ChangePassword";
-import ResetPassword from "./pages/resetPassword/ResetPassword";
-import UpdatePost from "./pages/updatePost/UpdatePost";
+import { ToastContainer } from "react-toastify";
+import PageLoader from "./ui/PageLoader/PageLoader";
+
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const Login = lazy(() => import("./pages/login/Login"));
+const Signup = lazy(() => import("./pages/signup/Signup"));
+const ForgetPassword = lazy(() =>
+  import("./pages/forgetPassword/ForgetPassword")
+);
+const Users = lazy(() => import("./pages/users/Users"));
+const Layout = lazy(() => import("./layout/Layout"));
+const CreatePost = lazy(() => import("./pages/createPost/CreatePost"));
+const Post = lazy(() => import("./pages/post/Post"));
+const EmailGate = lazy(() => import("./pages/EmailGate/EmailGate"));
+const Verify = lazy(() => import("./pages/verify/Verify"));
+const Account = lazy(() => import("./pages/account/Account"));
+const ChangePassword = lazy(() =>
+  import("./pages/changePassword/ChangePassword")
+);
+const ResetPassword = lazy(() => import("./pages/resetPassword/ResetPassword"));
+const UpdatePost = lazy(() => import("./pages/updatePost/UpdatePost"));
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer limit={3} />
       <Suspense fallback={<PageLoader />}>
         <AuthProvider>
           <Routes>

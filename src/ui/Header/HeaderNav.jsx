@@ -18,7 +18,7 @@ function HeaderNav() {
           <>
             <li>
               <NavLink
-                className="bg-transparent flex items-center text-teal-700 hover:shadow-xl p-3 hover:text-stone-900 transition-all duration-300 rounded-full"
+                className="bg-transparent flex items-center text-blue-700 hover:shadow-xl p-3 hover:text-stone-900 transition-all duration-300 rounded-full"
                 to="login"
               >
                 <HiMiniArrowRightEndOnRectangle size={23} />
@@ -26,7 +26,7 @@ function HeaderNav() {
               </NavLink>
             </li>
             <li>
-              <NavLink className="btn bg-teal-600 text-white" to="signup">
+              <NavLink className="btn bg-blue-600 text-white" to="signup">
                 Signup
               </NavLink>
             </li>

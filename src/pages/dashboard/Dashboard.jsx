@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllPosts } from "../post/postSlice";
-import PostCard from "../post/PostCard";
+import { fetchAllPosts } from "../../features/post/postSlice";
+import PostCard from "../../features/post/PostCard";
 import Spinner from "../../ui/Spinner/Spinner";
 
 function Dashboard() {

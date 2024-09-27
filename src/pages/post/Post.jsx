@@ -1,16 +1,15 @@
 import { useParams } from "react-router-dom";
-import PostActions from "./PostActions";
+import PostActions from "../../features/post/PostActions";
 import { useState, useCallback, useEffect } from "react";
 import { BASE_URL } from "../../utils/helpers";
-import { formatDate } from "../../utils/helpers";
-import { HiOutlineCalendarDays } from "react-icons/hi2";
 import styled from "styled-components";
-import Comments from "../comments/Comments";
+import Comments from "../../features/comments/Comments";
+import PostDetails from "../../features/post/PostDetails";
 
 function Post() {
   const [post, setPost] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+
   const [openModal, setOpenModal] = useState(false);
 
   const { id } = useParams();
@@ -47,7 +46,7 @@ function Post() {
   const StyledDiv = styled.div`
     background: #ffffffe6;
     height: max-content;
-    padding: 1.2rem;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     width: 55rem;
@@ -62,41 +61,10 @@ function Post() {
       <img
         src={`http://localhost:3000/static/posts/${post.image}`}
         alt={post.title}
-        className="h-[245px] object-cover rounded-md sm:h-[355px] md:h-[400px] lg:h-[500px]"
+        className="h-[245px] object-cover rounded-md sm:h-[335px] md:h-[380px] lg:h-[400px]"
       />
       <div className="flex flex-col gap-5 text-stone-900">
-        <div className="px-6 py-7 border-b-[1px] border-gray-300">
-          <div className="flex flex-col-reverse gap-5 sm:flex-row justify-between items-center">
-            <h1 className="text-2xl sm:text-5xl">
-              {isLoading ? "Loading..." : post.title}
-            </h1>
-            <div className="flex items-center gap-2">
-              <p>{formatDate(post.createdAt)}</p>
-              <HiOutlineCalendarDays size={22} />
-            </div>
-          </div>
-          <p className="text-base text-center sm:text-left sm:text-lg leading-7 mt-6">
-            {isLoading ? (
-              "Loading..."
-            ) : (
-              <>
-                {post?.description?.length > 120
-                  ? !showMore
-                    ? post.description?.slice(0, 120) + "...  "
-                    : post.description + "       "
-                  : post?.description}
-              </>
-            )}
-            {post?.description?.length > 120 && (
-              <button
-                className="text-teal-400 hover:text-teal-500"
-                onClick={() => setShowMore((s) => !s)}
-              >
-                {!showMore ? " show more" : " show less"}
-              </button>
-            )}
-          </p>
-        </div>
+        <PostDetails isLoading={isLoading} post={post} />
         <PostActions
           setOpenModal={setOpenModal}
           postId={post?._id}
