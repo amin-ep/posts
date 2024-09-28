@@ -1,0 +1,74 @@
+.content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100px;
+    border-radius: 15px 15px 0 0;
+    background: #f3f4f6;
+    border: none;
+    overflow: hidden;
+    z-index: 1001;
+
+    animation-name: to-up-animation;
+    -webkit-animation-name: to-up-animation;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-duration: 0.5s all;
+    -webkit-animation-duration: 0.5s;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.58);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    animation-name: to-darker;
+    -webkit-animation-name: to-darker;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+    animation-duration: 0.5s all;
+    -webkit-animation-duration: 0.5s;
+}
+
+.closing-content {
+    animation: to-down-animation 0.4s forwards;
+
+}
+
+
+@keyframes to-up-animation {
+    from {
+        transform: translate(0, 600px)
+    }
+
+    to {
+        transform: translate(0, 0)
+    }
+}
+
+
+@keyframes to-down-animation {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(0, 600px);
+    }
+}
+
+@keyframes to-darker {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

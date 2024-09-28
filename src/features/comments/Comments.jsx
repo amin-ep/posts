@@ -6,6 +6,7 @@ import CommentForm from "./CommentForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchGetCommentsOnPost } from "./commentSlice";
+import styles from "./Comments.module.css";
 
 ReactModal.setAppElement("#comments");
 
@@ -14,26 +15,6 @@ function Comments({ openModal, onClick, postId }) {
   const comments = useSelector((state) => state.comment.data);
 
   const dispatch = useDispatch();
-
-  const styles = {
-    content: {
-      bottom: "0",
-      left: "0",
-      right: "0",
-      top: "100px",
-      borderRadius: "15px 15px 0 0",
-      background: "#f3f4f6",
-      border: "none",
-      overflow: "hidden",
-      zIndex: 1001,
-      // position: "relative",
-    },
-    overlay: {
-      background: "#00000094",
-      backdropFilter: "blur(4px)",
-      zIndex: 1000,
-    },
-  };
 
   useEffect(() => {
     if (postId) {
@@ -45,12 +26,13 @@ function Comments({ openModal, onClick, postId }) {
     <ReactModal
       isOpen={openModal}
       onRequestClose={onClick}
-      style={styles}
       shouldCloseOnOverlayClick={true}
+      className={openModal ? styles.content : styles["closing-content"]}
+      overlayClassName={styles.overlay}
     >
       <header
         id="header"
-        className="flex justify-between text-stone-900 text-2xl border-b-2 border-stone-200 pb-5"
+        className="flex justify-between text-stone-900 text-2xl border-b-2 items-center p-5 border-stone-200 pb-5"
       >
         <h1>
           Comments (

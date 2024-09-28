@@ -2,14 +2,18 @@ import { NavLink, useNavigate } from "react-router-dom";
 import LinkButton from "../../ui/LinkButton";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { HiMiniArrowRightEndOnRectangle } from "react-icons/hi2";
+import { useNotification } from "../../hooks/useNotification";
 
 function HeaderNav() {
   const { isLoggedIn, logout } = useAuthentication();
   const navigate = useNavigate();
 
+  const { notify } = useNotification();
+
   const handleLogout = () => {
     logout();
     navigate("/login");
+    notify("success", "You are now logout");
   };
   return (
     <nav>

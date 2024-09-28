@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useCallback } from "react";
 
 const initialState = {
   value: "",
@@ -29,12 +29,12 @@ export function useInput(validateInput, defaultValue) {
   const inputIsValid = validateInput(value);
   const inputHasError = !inputIsValid && blur;
 
-  const handleInputChange = (e) => {
+  const handleInputChange = useCallback((e) => {
     dispatch({
       type: "input",
       payload: e.target.value,
     });
-  };
+  }, []);
 
   const handleInputBlur = () => {
     dispatch({

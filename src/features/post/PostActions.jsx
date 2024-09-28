@@ -13,15 +13,19 @@ import styles from "./PostActions.module.css";
 import { BASE_URL } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import LinkButton from "../../ui/LinkButton";
+import { useNotification } from "../../hooks/useNotification";
 
 function PostActions({ setOpenModal, postId, likes }) {
   const [toggleLike, setToggleLike] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const { currentUserData, isLoggedIn } = useAuthentication();
 
   const navigate = useNavigate();
 
+  const { notify } = useNotification();
+
+  const token = Cookies.get("token");
   const handleToggleLike = async () => {
-    const token = Cookies.get("token");
     if (isLoggedIn) {
       try {
         const res = await axios.post(
@@ -47,6 +51,38 @@ function PostActions({ setOpenModal, postId, likes }) {
     }
   };
 
+  const handleDeletePost = async () => {
+    try {
+      setIsDeleting(true);
+
+      const res = await axios.delete(`${BASE_URL}/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (res.status === 204) {
+        notify("success", "Your post deleted successfully");
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+      notify("error", error.response.data.message);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleOpenComment = () => {
+    if (isLoggedIn) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+      notify("error", "To send comment you have to login");
+    }
+  };
+
   useEffect(() => {
     const checkUserLiked = likes?.some((el) => el.user === currentUserData._id);
     if (checkUserLiked) {
@@ -55,14 +91,6 @@ function PostActions({ setOpenModal, postId, likes }) {
       setToggleLike(false);
     }
   }, [currentUserData, likes]);
-
-  const handleOpenComment = () => {
-    if (isLoggedIn) {
-      setOpenModal(true);
-    } else {
-      navigate("/login");
-    }
-  };
 
   return (
     <div
@@ -77,7 +105,9 @@ function PostActions({ setOpenModal, postId, likes }) {
           <LinkButton background="blue" to={`/update-post/${postId}`}>
             Update Post
           </LinkButton>
-          <LinkButton background="red">Delete Post</LinkButton>
+          <LinkButton onClick={handleDeletePost} type="button" background="red">
+            {isDeleting ? "Deleting..." : "Delete Post"}
+          </LinkButton>
         </div>
       ) : (
         ""

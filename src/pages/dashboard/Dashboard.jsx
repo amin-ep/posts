@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPosts } from "../../features/post/postSlice";
 import PostCard from "../../features/post/PostCard";
@@ -12,6 +12,20 @@ function Dashboard() {
     dispatch(fetchAllPosts());
   }, [dispatch]);
 
+  const renderedPosts = useMemo(() => {
+    return posts?.map((post) => (
+      <PostCard
+        image={post?.image}
+        title={post?.title}
+        description={post?.description}
+        key={post?._id}
+        likes={post?.likes}
+        id={post?._id}
+        comments={post?.comments}
+      />
+    ));
+  }, [posts]);
+
   if (status === "loading")
     return (
       <div className="flex items-center justify-center">
@@ -22,17 +36,7 @@ function Dashboard() {
     return (
       // sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {posts?.map((post) => (
-          <PostCard
-            image={post?.image}
-            title={post?.title}
-            description={post?.description}
-            key={post?._id}
-            likes={post?.likes}
-            id={post?._id}
-            comments={post?.comments}
-          />
-        ))}
+        {renderedPosts}
       </div>
     );
 }

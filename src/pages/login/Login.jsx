@@ -9,7 +9,7 @@ import AuthLayout from "../../ui/AuthLayout";
 import { useNotification } from "../../hooks/useNotification";
 import HomeLink from "../../ui/HomeLink";
 import EyeButton from "../../ui/EyeButton";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 function Login() {
   const { login, loading } = useAuthentication();
@@ -37,21 +37,24 @@ function Login() {
   let formIsValid = false;
   if (emailIsValid && passwordIsValid) formIsValid = true;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    const result = await login({
-      email: enteredEmail,
-      password: enteredPassword,
-    });
+      const result = await login({
+        email: enteredEmail,
+        password: enteredPassword,
+      });
 
-    if (result.status === "fail") {
-      notify("error", result.message);
-    } else {
-      navigate("/dashboard");
-      notify("success", `Welcome to your account ${result.data.username}`);
-    }
-  };
+      if (result.status === "fail") {
+        notify("error", result.message);
+      } else {
+        navigate("/dashboard");
+        notify("success", `Welcome to your account ${result.data.username}`);
+      }
+    },
+    [enteredEmail, enteredPassword, login, navigate]
+  );
 
   return (
     <>
