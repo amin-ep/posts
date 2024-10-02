@@ -6,7 +6,6 @@ import { fetchCreateCommentOnPost } from "./commentSlice";
 // import axios from "axios";
 // import Cookies from "js-cookie";
 import { IoSendOutline } from "react-icons/io5";
-import { ToastContainer } from "react-toastify";
 import { useNotification } from "../../hooks/useNotification";
 
 const validateComment = (value) => value.length >= 1 && value.length <= 200;
@@ -40,7 +39,9 @@ function CommentForm({ postId, replyTo }) {
         payload.append("parentComment", replyTo);
       }
 
-      const result = await dispatch(fetchCreateCommentOnPost(payload, postId));
+      const result = await dispatch(
+        fetchCreateCommentOnPost({ payload, postId })
+      );
 
       if (result?.meta?.requestStatus === "fulfilled") {
         reset();
@@ -62,7 +63,7 @@ function CommentForm({ postId, replyTo }) {
             inputHasError
               ? `bg-red-300 border-red-500 text-stone-900 placeholder:text-stone-700`
               : `bg-white border-gray-200`
-          } px-5 py-3 border-2 rounded-md w-full h-60 outline-none transition-all duration-500`}
+          } px-5 py-3 border-2 rounded-md w-full h-60 resize-y outline-none transition-all duration-500`}
           value={enteredComment}
           onChange={handleInputChange}
           onBlur={handleInputBlur}

@@ -10,7 +10,7 @@ function PostDetails({ isLoading, post }) {
       <div className="px-6 py-7 border-b-[1px] border-gray-300">
         <div className="flex flex-col-reverse gap-5 sm:flex-row justify-between items-center">
           <h1 className="text-2xl sm:text-5xl">
-            {isLoading ? "Loading..." : post.title}
+            {isLoading === "loading" ? "Loading..." : post.title}
           </h1>
           <div className="flex items-center gap-2">
             <p>{formatDate(post.createdAt)}</p>
@@ -18,7 +18,7 @@ function PostDetails({ isLoading, post }) {
           </div>
         </div>
         <p className="text-base text-center sm:text-left sm:text-lg leading-7 mt-6">
-          {isLoading ? (
+          {isLoading === "loading" ? (
             "Loading..."
           ) : (
             <>

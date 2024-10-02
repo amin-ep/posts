@@ -3,11 +3,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { BASE_URL } from "../../utils/helpers";
 
-const initialState = {
-  status: "idle",
-  data: [],
-};
-
 export const fetchGetCommentsOnPost = createAsyncThunk(
   "comment/getAllComments",
   async (postId) => {
@@ -29,7 +24,7 @@ export const fetchGetCommentsOnPost = createAsyncThunk(
 
 export const fetchCreateCommentOnPost = createAsyncThunk(
   "comment/createComment",
-  async function (payload, postId) {
+  async function ({ payload, postId }) {
     const token = Cookies.get("token");
     try {
       const res = await axios.post(
@@ -49,6 +44,11 @@ export const fetchCreateCommentOnPost = createAsyncThunk(
     }
   }
 );
+
+const initialState = {
+  status: "idle",
+  data: [],
+};
 
 const commentSlice = createSlice({
   name: "comment",

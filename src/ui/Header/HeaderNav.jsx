@@ -1,46 +1,36 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import LinkButton from "../../ui/LinkButton";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 import { useAuthentication } from "../../contexts/AuthContent";
-import { HiMiniArrowRightEndOnRectangle } from "react-icons/hi2";
-import { useNotification } from "../../hooks/useNotification";
+
+const StyledNavLink = styled(NavLink)`
+  color: #374151;
+  transition: 0.4s;
+  &:hover {
+    color: #111827;
+    letter-spacing: 2px;
+  }
+`;
 
 function HeaderNav() {
-  const { isLoggedIn, logout } = useAuthentication();
-  const navigate = useNavigate();
-
-  const { notify } = useNotification();
-
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-    notify("success", "You are now logout");
-  };
+  const { isLoggedIn, currentUserData } = useAuthentication();
   return (
     <nav>
-      <ul className="flex items-center gap-4">
-        {!isLoggedIn ? (
+      <ul className="flex gap-8">
+        <li>
+          <StyledNavLink to="/">Home</StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/about">About</StyledNavLink>
+        </li>
+        {isLoggedIn && currentUserData?.role === "admin" && (
           <>
             <li>
-              <NavLink
-                className="bg-transparent flex items-center text-blue-700 hover:shadow-xl p-3 hover:text-stone-900 transition-all duration-300 rounded-full"
-                to="login"
-              >
-                <HiMiniArrowRightEndOnRectangle size={23} />
-                <span>Login</span>
-              </NavLink>
+              <StyledNavLink to="/create-post">Create Post</StyledNavLink>
             </li>
             <li>
-              <NavLink className="btn bg-blue-600 text-white" to="signup">
-                Signup
-              </NavLink>
+              <StyledNavLink to="/users">Users</StyledNavLink>
             </li>
           </>
-        ) : (
-          <li>
-            <LinkButton onClick={handleLogout} width="100px" type="button">
-              Logout
-            </LinkButton>
-          </li>
         )}
       </ul>
     </nav>

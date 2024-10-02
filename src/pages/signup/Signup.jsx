@@ -98,10 +98,13 @@ function Signup() {
       sessionStorage.setItem("authUsername", enteredUsername);
       sessionStorage.setItem("authEmail", enteredEmail);
       sessionStorage.setItem("authPassword", enteredPassword);
-      navigate("/");
+      navigate("/email-message");
+      notify("success", `An email sent to ${enteredEmail}`);
     } else if (result.status === "fail") {
       notify("error", result.message);
     }
+
+    // http://localhost:5173/verify/055edd9a-45f9-4a8c-9b4c-2f144388d53d
   };
 
   const SquareBasicStyles = css`

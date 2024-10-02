@@ -2,15 +2,20 @@ import { useState } from "react";
 import Input from "../../ui/Input";
 import { useInput } from "../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCreatePost } from "../../features/post/postSlice";
+import { createPost } from "../../features/post/postSlice";
 import FileInput from "../../ui/FileInput";
 import { validateTitle, validateDescription } from "../../utils/validators";
 import { useNotification } from "../../hooks/useNotification";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
   const [selectedImage, setSelectedImage] = useState(null);
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.post.status === "loading");
+  const { loading: isCreating, result: creatingResult } = useSelector(
+    (state) => state.post
+  );
+
+  const navigate = useNavigate();
 
   const {
     value: enteredTitle,
@@ -34,7 +39,9 @@ function CreatePost() {
     const type = fileType.split("/")[0];
 
     if (type !== "image") {
-      throw new Error("File should be image");
+      const message = "Profile should be an image";
+      notify("error", message);
+      throw new Error(message);
     }
   };
 
@@ -44,7 +51,11 @@ function CreatePost() {
     setSelectedImage(file);
   };
 
-  const submitHandler = async (e) => {
+  let formIsValid = false;
+  if (titleIsValid && descriptionIsValid && selectedImage !== null)
+    formIsValid = true;
+
+  const submitHandler = (e) => {
     e.preventDefault();
 
     const payload = new FormData();
@@ -53,16 +64,15 @@ function CreatePost() {
     payload.append("description", enteredDescription);
     payload.append("image", selectedImage);
 
-    const result = await dispatch(fetchCreatePost(payload));
-
-    if (result.status === "success") {
-      notify("success", "Your post created successfully");
-    }
+    dispatch(createPost(payload)).then(() => {
+      if (creatingResult.statusCode === 201) {
+        notify("success", creatingResult.message);
+        navigate("/dashboard");
+      } else {
+        notify("error", creatingResult.message);
+      }
+    });
   };
-
-  let formIsValid = false;
-  if (titleIsValid && descriptionIsValid && selectedImage !== null)
-    formIsValid = true;
 
   return (
     <>
@@ -121,7 +131,7 @@ function CreatePost() {
                 className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
                 disabled={!formIsValid}
               >
-                {isLoading ? "Loading..." : "Create"}
+                {isCreating === "creating" ? "Creating..." : "Create"}
               </button>
             </div>
           </div>

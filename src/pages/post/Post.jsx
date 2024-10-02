@@ -1,43 +1,22 @@
 import { useParams } from "react-router-dom";
 import PostActions from "../../features/post/PostActions";
-import { useState, useCallback, useEffect } from "react";
-import { BASE_URL } from "../../utils/helpers";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Comments from "../../features/comments/Comments";
 import PostDetails from "../../features/post/PostDetails";
+import { getPostById } from "../../features/post/postSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Post() {
-  const [post, setPost] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-
   const [openModal, setOpenModal] = useState(false);
+  const { post, status: isLoading } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
 
   const { id } = useParams();
 
-  const getPost = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetch(`${BASE_URL}/posts/${id}`);
-      const data = await res.json();
-
-      if (data.status === "success") {
-        setPost(data.data.doc);
-      } else {
-        console.log(data);
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [id]);
-
-  useEffect(
-    function () {
-      getPost();
-    },
-    [getPost]
-  );
+  useEffect(() => {
+    dispatch(getPostById(id));
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (openModal) document.body.style.overflowY = "hidden";

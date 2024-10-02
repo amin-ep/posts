@@ -26,9 +26,9 @@ const Aside = styled.aside`
 function Sidebar({ openSidebar, setOpenSidebar }) {
   return (
     <Aside
-      className={`py-12 px-10 border-r-[1px] border-r-gray-100 absolute top-0 left-0 bottom-0 z-50 gap-12 flex-col ${
+      className={`py-12 px-10 border-r-[1px] fixed left-0 top-0 bottom-0 z-50 border-r-gray-100 gap-12 flex-col ${
         openSidebar ? "flex" : "hidden"
-      } w-full md:static md:row-[1/_-1] bg-white md:w-[22rem]`}
+      } w-full bg-white md:w-[22rem]`}
     >
       <Link
         to="dashboard"

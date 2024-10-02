@@ -6,7 +6,7 @@ import {
 } from "react-icons/hi2";
 
 import { useAuthentication } from "../../contexts/AuthContent";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "./PostActions.module.css";
@@ -14,17 +14,23 @@ import { BASE_URL } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import LinkButton from "../../ui/LinkButton";
 import { useNotification } from "../../hooks/useNotification";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePostById } from "./postSlice";
 
 function PostActions({ setOpenModal, postId, likes }) {
   const [toggleLike, setToggleLike] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const { currentUserData, isLoggedIn } = useAuthentication();
+  const { status: isDeleting, result: deletingResult } = useSelector(
+    (state) => state.post
+  );
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { notify } = useNotification();
 
   const token = Cookies.get("token");
+
   const handleToggleLike = async () => {
     if (isLoggedIn) {
       try {
@@ -51,28 +57,23 @@ function PostActions({ setOpenModal, postId, likes }) {
     }
   };
 
-  const handleDeletePost = async () => {
-    try {
-      setIsDeleting(true);
+  const handleDeletePost = useCallback(() => {
+    dispatch(deletePostById(postId));
 
-      const res = await axios.delete(`${BASE_URL}/posts/${postId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (res.status === 204) {
-        notify("success", "Your post deleted successfully");
-        navigate("/dashboard");
-      }
-    } catch (error) {
-      console.log(error);
-      notify("error", error.response.data.message);
-    } finally {
-      setIsDeleting(false);
+    if (deletingResult.statusCode === 204) {
+      notify("success", deletingResult.message);
+      navigate("/dashboard");
+    } else {
+      notify("error", deletingResult.message);
     }
-  };
+  }, [
+    dispatch,
+    postId,
+    deletingResult.statusCode,
+    deletingResult.message,
+    notify,
+    navigate,
+  ]);
 
   const handleOpenComment = () => {
     if (isLoggedIn) {
@@ -106,7 +107,7 @@ function PostActions({ setOpenModal, postId, likes }) {
             Update Post
           </LinkButton>
           <LinkButton onClick={handleDeletePost} type="button" background="red">
-            {isDeleting ? "Deleting..." : "Delete Post"}
+            {isDeleting === "deleting" ? "Deleting..." : "Delete Post"}
           </LinkButton>
         </div>
       ) : (

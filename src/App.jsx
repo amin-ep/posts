@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContent";
 import { ToastContainer } from "react-toastify";
 import PageLoader from "./ui/PageLoader/PageLoader";
+import About from "./pages/about/About";
 
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Login = lazy(() => import("./pages/login/Login"));
@@ -35,7 +36,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="resetPassword/:id" />
               <Route path="users" element={<Users />} />
-              <Route path="createPost" element={<CreatePost />} />
+              <Route path="create-post" element={<CreatePost />} />
               <Route path="post/:id" element={<Post />} />
               <Route path="account" element={<Account />} />
               <Route path="update-post/:id" element={<UpdatePost />} />
@@ -47,6 +48,7 @@ function App() {
             <Route path="email-message" element={<EmailGate />} />
             <Route path="verify/:key" element={<Verify />} />
             <Route path="change-password" element={<ChangePassword />} />
+            <Route path="about" element={<About />} />
           </Routes>
         </AuthProvider>
       </Suspense>

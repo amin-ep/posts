@@ -1,46 +1,26 @@
-import axios from "axios";
 import Input from "../../ui/Input";
-import { BASE_URL } from "../../utils/helpers";
-import { useParams } from "react-router-dom";
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useNotification } from "../../hooks/useNotification";
-import Cookies from "js-cookie";
 import { useInput } from "../../hooks/useInput";
 import { validateDescription, validateTitle } from "../../utils/validators";
 import LinkButton from "../../ui/LinkButton";
 import BackLink from "../../ui/BackLink";
 import { HiArrowDownTray } from "react-icons/hi2";
-
-const initialState = {
-  loading: false,
-  post: {},
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "loading":
-      return { ...state, loading: true };
-
-    case "idle":
-      return { ...state, loading: false };
-
-    case "data":
-      return { ...state, post: action.payload };
-
-    // case "update":
-    //   return { ...state, post: action.payload };
-
-    default:
-      throw new Error("unknown action type");
-  }
-};
+import { useSelector, useDispatch } from "react-redux";
+import { getPostById, updatePostById } from "../../features/post/postSlice";
 
 function UpdatePost() {
-  const [{ loading, post }, dispatch] = useReducer(reducer, initialState);
   const [selectedImage, setSelectedImage] = useState("");
   const [formIsValid, setFormIsValid] = useState(false);
 
+  const { post, loading, result } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const { notify } = useNotification();
 
   const {
     value: enteredTitle,
@@ -58,33 +38,37 @@ function UpdatePost() {
     inputHasError: descriptionHasError,
   } = useInput(validateDescription, post?.description);
 
-  useEffect(() => {
-    if (enteredTitle !== post?.title) {
-      if (titleIsValid) {
-        setFormIsValid(true);
-      }
-    } else {
-      setFormIsValid(false);
-    }
+  const validateFileType = (fileType) => {
+    const type = fileType.split("/")[0];
 
-    if (enteredDescription !== post?.description) {
-      if (descriptionIsValid) {
+    if (type !== "image") {
+      throw new Error("File should be image");
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    validateFileType(e.target.files[0].type);
+    setSelectedImage(file);
+  };
+
+  useEffect(() => {
+    if (titleIsValid && descriptionIsValid) {
+      if (
+        enteredTitle !== post?.title ||
+        enteredDescription !== post?.description ||
+        selectedImage !== ""
+      ) {
         setFormIsValid(true);
       }
-    } else {
-      setFormIsValid(false);
     }
 
     if (
-      enteredTitle !== post?.title &&
-      enteredDescription === post?.description
+      enteredTitle === post?.title &&
+      enteredDescription === post?.description &&
+      selectedImage === ""
     ) {
-      setFormIsValid(true);
-    } else if (
-      enteredDescription !== post?.description &&
-      enteredTitle === post?.title
-    ) {
-      setFormIsValid(true);
+      setFormIsValid(false);
     }
   }, [
     descriptionIsValid,
@@ -92,44 +76,12 @@ function UpdatePost() {
     enteredDescription,
     enteredTitle,
     post,
+    selectedImage,
   ]);
-  const { notify } = useNotification();
 
-  const getPostDataById = useCallback(async () => {
-    try {
-      const token = Cookies.get("token");
-      dispatch({
-        type: "loading",
-      });
-      const res = await axios.get(`${BASE_URL}/posts/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
-      if (res.data.status === "success") {
-        dispatch({
-          type: "data",
-          payload: res.data.data.doc,
-        });
-      }
-    } catch (err) {
-      // notify('error');
-      console.log(err);
-    } finally {
-      dispatch({
-        type: "idle",
-      });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    getPostDataById();
-  }, [getPostDataById]);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const token = Cookies.get("token");
+
     const payload = new FormData();
 
     if (enteredTitle !== post?.title) {
@@ -142,30 +94,21 @@ function UpdatePost() {
       payload.append("image", selectedImage);
     }
 
-    try {
-      dispatch({
-        type: "loading",
-      });
-      const res = await axios.patch(`${BASE_URL}/posts/${id}`, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      if (res.status === 200) {
-        notify("success", "Your post updated successfully");
-      } else {
-        notify("error", "something is went wrong");
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      dispatch({
-        type: "idle",
-      });
-    }
+    dispatch(updatePostById({ id, payload }))
+      .then(() => {
+        if (result.statusCode === 200) {
+          notify("success", result.message);
+          navigate(-1);
+        } else {
+          notify("error", result.message);
+        }
+      })
+      .then(() => dispatch(getPostById(id)));
   };
+
+  useEffect(() => {
+    dispatch(getPostById(id));
+  }, [dispatch, id]);
 
   return (
     <>
@@ -196,6 +139,7 @@ function UpdatePost() {
               <input
                 type="file"
                 className="top-0 absolute left-0 right-0 bottom-0 opacity-0 z-50 w-max h-max cursor-pointer"
+                onChange={handleFileChange}
               />
             </div>
           </div>

@@ -21,9 +21,31 @@ export const fetchGetAllUsers = createAsyncThunk(
   }
 );
 
+export const deleteUserById = createAsyncThunk(
+  "user/deleteUser",
+  async (id, { rejectWithValue }) => {
+    try {
+      const token = Cookies.get("token");
+      await axios.delete(`${BASE_URL}/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return id;
+    } catch (err) {
+      return rejectWithValue(err.response.data.message);
+    }
+  }
+);
+
 const initialState = {
   status: "idle",
   users: [],
+  result: {
+    statusCode: null,
+    message: "",
+  },
 };
 
 const userSlice = createSlice({
@@ -41,6 +63,24 @@ const userSlice = createSlice({
       .addCase(fetchGetAllUsers.rejected, (state) => {
         state.status = "error";
         state.error = "There was an error while fetching data";
+      });
+
+    builder
+      .addCase(deleteUserById.pending, (state) => {
+        state.status = "deleting";
+      })
+      .addCase(deleteUserById.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.users = state.users.filter((el) => el._id !== action.payload);
+        state.result.statusCode = 204;
+        state.result.message = "The user deleted successfully";
+        console.log(action.payload);
+      })
+      .addCase(deleteUserById.rejected, (state, action) => {
+        state.status = "error";
+        state.result.message = action.payload;
+        console.log(action.payload);
+        state.result.statusCode = 500;
       });
   },
 });

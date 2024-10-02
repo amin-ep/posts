@@ -35,7 +35,7 @@ function Dashboard() {
   else if (status === "idle")
     return (
       // sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid grid-cols-1 grid-rows-[min-content] gap-4 sm:grid-cols-2 md:grid-cols-3">
         {renderedPosts}
       </div>
     );
