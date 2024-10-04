@@ -3,10 +3,13 @@ import Input from "../../ui/Input";
 import { useInput } from "../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../../features/post/postSlice";
-import FileInput from "../../ui/FileInput";
+import Container from "../../ui/Container/Container";
 import { validateTitle, validateDescription } from "../../utils/validators";
 import { useNotification } from "../../hooks/useNotification";
 import { useNavigate } from "react-router-dom";
+import Textarea from "../../ui/Textarea";
+import FileInput from "../../ui/FileInput/FileInput";
+import LinkButton from "../../ui/LinkButton";
 
 function CreatePost() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -75,69 +78,60 @@ function CreatePost() {
   };
 
   return (
-    <>
-      <div className="bg-white/50 backdrop-blur-md shadow-lg shadow-black/45 w-[50rem] max-w-[95%] h-min rounded-md">
-        <header className="text-center py-5">
-          <h1 className="text-4xl"> Create Post</h1>
-        </header>
-        <form
-          className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-10 p-6"
-          onSubmit={submitHandler}
-        >
-          <div>
-            <FileInput
-              selectedImage={selectedImage}
-              setSelectedImage={setSelectedImage}
-              handleFileChange={handleFileChange}
-            />
-          </div>
-          <div className="flex flex-col gap-3">
-            <Input
-              placeholder="title"
-              value={enteredTitle}
-              onChange={handleTitleChange}
-              onBlur={handleTitleBlur}
-              type="text"
-              name="title"
-              id="title"
-              hasError={titleHasError}
-            />
-            {titleHasError && (
-              <p className="text-error">
-                Please input a valid title (3-20 characters)
-              </p>
-            )}
-            <div>
-              <textarea
-                placeholder="description"
-                className={`${
-                  descriptionHasError
-                    ? `bg-red-300 border-red-500 text-stone-900 placeholder:text-stone-700`
-                    : `bg-white border-gray-200`
-                } px-5 py-3 border-2 rounded-md w-full h-60 outline-none transition-all resize-y duration-500`}
-                value={enteredDescription}
-                onChange={handleDescriptionChange}
-                onBlur={handleDescriptionBlur}
-              ></textarea>
-              {descriptionHasError && (
-                <p className="text-error">
-                  Please input a valid description (10-400 characters)
-                </p>
-              )}
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
-                disabled={!formIsValid}
-              >
-                {isCreating === "creating" ? "Creating..." : "Create"}
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </>
+    <Container size="small" extraClasses="rounded-lg flex flex-col">
+      <header className="text-center py-10">
+        <h1 className="text-4xl text-gray-700 font-semibold"> Create Post</h1>
+      </header>
+      <form onSubmit={submitHandler} className="flex flex-col p-5 gap-3">
+        <FileInput
+          handleFileChange={handleFileChange}
+          selectedImage={selectedImage}
+          setSelectedImage={setSelectedImage}
+          imageName="post"
+        />
+        <div>
+          <Input
+            placeholder="title"
+            value={enteredTitle}
+            onChange={handleTitleChange}
+            onBlur={handleTitleBlur}
+            type="text"
+            name="title"
+            id="title"
+            hasError={titleHasError}
+          />
+          {titleHasError && (
+            <p className="text-error">
+              Please input a valid title (3-20 characters)
+            </p>
+          )}
+        </div>
+        <div>
+          <Textarea
+            hasError={descriptionHasError}
+            value={enteredDescription}
+            onBlur={handleDescriptionBlur}
+            onChange={handleDescriptionChange}
+            placeholder="Description..."
+          />
+          {descriptionHasError && (
+            <p className="text-error">
+              Please input a valid description (10-400 characters)
+            </p>
+          )}
+        </div>
+        <div>
+          <LinkButton
+            type="submit"
+            className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
+            disabled={!formIsValid}
+            background="blue"
+          >
+            {isCreating === "creating" ? "Creating..." : "Create"}
+          </LinkButton>
+        </div>
+      </form>
+    </Container>
   );
 }
 

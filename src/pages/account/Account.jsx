@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AccountHeader from "../../features/account/AccountHeader";
 import AccountForm from "../../features/account/AccountForm";
+import Container from "../../ui/Container/Container";
 
 function Account() {
   const [selectedImage, setSelectedImage] = useState("");
@@ -20,15 +21,14 @@ function Account() {
   };
 
   return (
-    <div className="w-full flex items-center justify-center overflow-auto relative">
-      <div className="linear-background h-max w-[90%] flex flex-col gap-3 max-w-full text-stone-900 p-5 rounded-xl shadow-stone-700 shadow-2xl">
-        <AccountHeader
-          selectedImage={selectedImage}
-          handleFileChange={handleFileChange}
-        />
-        <AccountForm selectedImage={selectedImage} />
-      </div>
-    </div>
+    <Container size="small" extraClasses="rounded-lg py-6">
+      <AccountHeader
+        selectedImage={selectedImage}
+        handleFileChange={handleFileChange}
+        setSelectedImage={setSelectedImage}
+      />
+      <AccountForm selectedImage={selectedImage} />
+    </Container>
   );
 }
 

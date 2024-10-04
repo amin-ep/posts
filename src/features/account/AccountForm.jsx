@@ -5,7 +5,6 @@ import { useInput } from "../../hooks/useInput";
 import { Link } from "react-router-dom";
 import { useNotification } from "../../hooks/useNotification";
 import LinkButton from "../../ui/LinkButton";
-import { ToastContainer } from "react-toastify";
 
 const validateUsername = (value) =>
   value.trim().length <= 12 && value.trim().length >= 5;
@@ -97,7 +96,10 @@ function AccountForm({ selectedImage }) {
             {loading ? "Loading..." : "Edit"}
           </LinkButton>
         </div>
-        <Link to="/change-password" className="hover:text-white">
+        <Link
+          to="/change-password"
+          className="text-gray-800 font-semibold hover:text-gray-600"
+        >
           Change My Password
         </Link>
       </form>

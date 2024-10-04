@@ -22,9 +22,9 @@ function Input({
       onBlur={onBlur}
       className={`${
         hasError
-          ? `bg-red-300 text-stone-900 placeholder:text-stone-700`
-          : `bg-white/80`
-      } px-5 py-3 rounded-full w-full outline-none transition-all duration-500 focus:bg-white focus:shadow-2xl focus:shadow-black/85 ${extraStyles}`}
+          ? `bg-red-300 border-red-500 text-stone-900 placeholder:text-stone-700`
+          : `bg-white`
+      } px-5 py-3 rounded-full w-full outline-none border-[1px] focus:border-blue-950 border-gray-300 transition-all duration-500 focus:bg-white focus:shadow-2xl focus:shadow-black/45 ${extraStyles}`}
       placeholder={placeholder}
       defaultValue={defaultValue}
     />

@@ -49,7 +49,7 @@ function Login() {
       if (result.status === "fail") {
         notify("error", result.message);
       } else {
-        navigate("/dashboard");
+        navigate("/home");
         notify("success", `Welcome to your account ${result.data.username}`);
       }
     },

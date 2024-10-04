@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllPosts } from "../../features/post/postSlice";
 import PostCard from "../../features/post/PostCard";
 import Spinner from "../../ui/Spinner/Spinner";
+import Container from "../../ui/Container/Container";
+import styles from "./Home.module.css";
 
-function Dashboard() {
+function Home() {
   const { status, data: posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
@@ -34,11 +36,13 @@ function Dashboard() {
     );
   else if (status === "idle")
     return (
-      // sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4
-      <div className="grid grid-cols-1 grid-rows-[min-content] gap-4 sm:grid-cols-2 md:grid-cols-3">
+      <Container
+        size="large"
+        extraClasses={`rounded-md ${styles["card-wrapper"]}`}
+      >
         {renderedPosts}
-      </div>
+      </Container>
     );
 }
 
-export default Dashboard;
+export default Home;

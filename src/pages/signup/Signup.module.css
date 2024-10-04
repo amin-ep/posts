@@ -1,0 +1,40 @@
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 400px));
+    justify-content: center;
+    grid-template-areas: 'image image' 'username username' 'email email' 'password confirm-password' 'actions actions';
+    grid-gap: 1rem;
+    justify-content: center;
+    align-items: space-between;
+}
+
+@media(max-width: 425px) {
+    .form {
+        grid-template-areas: 'image image' 'username username' 'email email' 'password password' 'password-confirm password-confirm' 'actions actions';
+    }
+}
+
+.image-input-wrapper {
+    grid-area: image;
+}
+
+
+.username-input-wrapper {
+    grid-area: username;
+}
+
+.email-input-wrapper {
+    grid-area: email;
+}
+
+.password-input-wrapper {
+    grid-area: password;
+}
+
+.passwordConfirm-input-wrapper {
+    grid-area: password-confirm;
+}
+
+.form-actions {
+    grid-area: actions;
+}

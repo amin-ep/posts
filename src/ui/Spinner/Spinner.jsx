@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
   display: grid;
   border: 4px solid var(--color-white);
   border-radius: 50%;
-  border-right-color: var(--color-teal-600);
+  border-right-color: var(--color-blue-600);
   animation: ${spinnerRotating} 1s infinite linear;
 
   &::after,
@@ -33,7 +33,7 @@ const StyledDiv = styled.div`
 
 function Spinner() {
   return (
-    <div>
+    <div className="flex items-center justify-center h-dvh">
       <StyledDiv></StyledDiv>
     </div>
   );

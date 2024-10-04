@@ -31,8 +31,8 @@ function AccountHeader({ selectedImage, handleFileChange }) {
         description="Are you sure you want to delete your account?"
         onDelete={handleDeleteUser}
       />
-      <header className="flex flex-col items-center gap-3 text-center justify-center">
-        <div className="flex flex-col items-center justify-center relative">
+      <header className="gap-7 text-center relative grid grid-cols-[10rem] grid-rows-[10rem_auto_auto_auto] justify-center">
+        <div className="relative flex items-center justify-center">
           <img
             src={
               selectedImage === ""
@@ -40,12 +40,12 @@ function AccountHeader({ selectedImage, handleFileChange }) {
                 : URL.createObjectURL(selectedImage)
             }
             alt={currentUserData?.username}
-            className="w-36 h-36 object-cover object-center rounded-full outline-4 outline-white outline-offset-4 outline"
+            className="w-36 h-36 object-cover object-center rounded-full outline-4 outline-gray-800 outline-offset-4 outline"
             width={144}
             height={144}
             loading="lazy"
           />
-          <div className="absolute w-14 h-14 flex items-center justify-center rounded-full cursor-pointer left-32 bottom-20 bg-blue-500 text-2xl text-black">
+          <div className="absolute w-14 h-14 flex items-center justify-center rounded-full cursor-pointer right-0 bg-blue-600 text-white text-2xl top-28">
             <HiMiniArrowUpTray className="z-20 cursor-pointer" />
             <input
               type="file"
@@ -53,6 +53,8 @@ function AccountHeader({ selectedImage, handleFileChange }) {
               onChange={handleFileChange}
             />
           </div>
+        </div>
+        <div className="text-center text-gray-800">
           <h1 className="text-2xl md:text-3xl lg:text-4xl">
             {currentUserData?.username}
           </h1>
@@ -63,16 +65,15 @@ function AccountHeader({ selectedImage, handleFileChange }) {
               : `Created account ${formatDate(currentUserData?.createdAt)}`}
           </p>
         </div>
-        <div>
-          <LinkButton
-            type="button"
-            background="red"
-            onClick={() => setThrowAlert(true)}
-          >
-            {" "}
-            Delete Me
-          </LinkButton>
-        </div>
+
+        <LinkButton
+          type="button"
+          background="red"
+          onClick={() => setThrowAlert(true)}
+        >
+          {" "}
+          Delete Me
+        </LinkButton>
       </header>
     </>
   );

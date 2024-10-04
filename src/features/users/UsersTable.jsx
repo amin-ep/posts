@@ -90,7 +90,7 @@ function UsersTable() {
 
   return (
     <>
-      <Paper sx={{ width: "70rem", maxWidth: "100%" }}>
+      <Paper sx={{ width: "70rem", maxWidth: "100%", maxHeight: "30rem" }}>
         <TableContainer sx={{ borderRadius: "7px" }}>
           <Table stickyHeader sx={{ maxHeight: 500 }}>
             <TableHead>

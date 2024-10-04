@@ -1,15 +1,21 @@
+/* eslint-disable react/no-unescaped-entities */
 import HomeLink from "../../ui/HomeLink";
 
 function About() {
   return (
     <div
-      style={{ background: "url('/images/development.png')" }}
-      className="h-dvh flex items-center justify-center bg-cover bg-no-repeat bg-fixed overflow-auto p-6"
+      style={{
+        background: "url('/images/development.png')",
+        backgroundAttachment: "fixed",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+      className="flex items-center justify-center p-6"
     >
       <HomeLink />
       <div className="bg-white rounded-md w-[37rem] max-w-full shadow-lg my-10 shadow-black/35 p-5">
         <header className="text-center p-5 text-4xl flex flex-col gap-4">
-          <h1>About us</h1>
+          <h1>About this app</h1>
           <img
             src="/images/development-2.jpg"
             alt="development"

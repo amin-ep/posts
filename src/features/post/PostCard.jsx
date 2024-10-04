@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function PostCard({ image, title, description, likes, comments, id }) {
   return (
-    <div className="flex flex-col gap-3 rounded-md bg-white shadow-xl w-80 max-w-full">
+    <div className="flex flex-col gap-3 rounded-md bg-white shadow-xl">
       <img
         src={`http://localhost:3000/static/posts/${image}`}
         alt={title}

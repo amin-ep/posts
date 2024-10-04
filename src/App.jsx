@@ -3,9 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContent";
 import { ToastContainer } from "react-toastify";
 import PageLoader from "./ui/PageLoader/PageLoader";
-import About from "./pages/about/About";
 
-const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const Home = lazy(() => import("./pages/Home/Home"));
 const Login = lazy(() => import("./pages/login/Login"));
 const Signup = lazy(() => import("./pages/signup/Signup"));
 const ForgetPassword = lazy(() =>
@@ -23,6 +22,7 @@ const ChangePassword = lazy(() =>
 );
 const ResetPassword = lazy(() => import("./pages/resetPassword/ResetPassword"));
 const UpdatePost = lazy(() => import("./pages/updatePost/UpdatePost"));
+const About = lazy(() => import("./pages/about/About"));
 
 function App() {
   return (
@@ -32,17 +32,17 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route element={<Layout />}>
-              <Route index element={<Navigate replace to="/dashboard" />} />
-              <Route path="dashboard" element={<Dashboard />} />
+              <Route index element={<Navigate replace to="/home" />} />
+              <Route path="home" element={<Home />} />
               <Route path="resetPassword/:id" />
               <Route path="users" element={<Users />} />
               <Route path="create-post" element={<CreatePost />} />
               <Route path="post/:id" element={<Post />} />
               <Route path="account" element={<Account />} />
               <Route path="update-post/:id" element={<UpdatePost />} />
+              <Route path="signup" element={<Signup />} />
             </Route>
             <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
             <Route path="forgetPassword" element={<ForgetPassword />} />
             <Route path="reset-password/:key" element={<ResetPassword />} />
             <Route path="email-message" element={<EmailGate />} />

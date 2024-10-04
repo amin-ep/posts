@@ -19,7 +19,7 @@ function AccountInput({
   const [openInput, setOpenInput] = useState(false);
 
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-between sm:px-10 md:px-20 lg:px-40  sm:items-center w-full">
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:px-10 md:px-20 lg:px-40  sm:items-center w-full text-gray-800">
       <label
         className="text-base md:text-lg text-stone-9000 font-semibold"
         onClick={() => setOpenInput(true)}

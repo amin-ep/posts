@@ -9,6 +9,10 @@ const StyledNavLink = styled(NavLink)`
     color: #111827;
     letter-spacing: 2px;
   }
+
+  .active {
+    color: red;
+  }
 `;
 
 function HeaderNav() {
