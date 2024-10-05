@@ -5,12 +5,11 @@ import { BASE_URL } from "../../utils/helpers";
 
 export const fetchAllPosts = createAsyncThunk(
   "post/fetchPosts",
-  async function fetchAllPosts() {
+  async function fetchAllPosts(page) {
     try {
-      const res = await fetch(`${BASE_URL}/posts`);
+      const res = await fetch(`${BASE_URL}/posts?page=${page}`);
       const data = await res.json();
-
-      return data.data.docs;
+      return data;
     } catch (err) {
       console.log(err);
     }
@@ -78,6 +77,7 @@ export const updatePostById = createAsyncThunk(
         },
       });
 
+      console.log(res);
       return res.data.data.doc;
     } catch (err) {
       console.log(err);
@@ -89,6 +89,7 @@ const initialState = {
   status: "idle",
   deleting: "idle",
   data: [],
+  totalPages: null,
   post: {},
   result: {
     statusCode: null,
@@ -106,7 +107,8 @@ const postSlice = createSlice({
       })
       .addCase(fetchAllPosts.fulfilled, (state, action) => {
         state.status = "idle";
-        state.data = action.payload;
+        state.data = action.payload.data.docs;
+        state.totalPages = action.payload.totalPages;
       })
       .addCase(fetchAllPosts.rejected, (state) => {
         state.status = "error";
@@ -118,10 +120,10 @@ const postSlice = createSlice({
         state.status = "creating";
       })
       .addCase(createPost.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.data.unshift(action.payload);
+        state.status = "created";
         state.result.statusCode = 201;
         state.result.message = "Your new post published successfully";
+        state.data.unshift(action.payload);
       })
       .addCase(createPost.rejected, (state, action) => {
         state.status = "error";

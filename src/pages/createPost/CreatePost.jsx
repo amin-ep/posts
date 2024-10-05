@@ -14,9 +14,7 @@ import LinkButton from "../../ui/LinkButton";
 function CreatePost() {
   const [selectedImage, setSelectedImage] = useState(null);
   const dispatch = useDispatch();
-  const { loading: isCreating, result: creatingResult } = useSelector(
-    (state) => state.post
-  );
+  const { loading: isCreating, status } = useSelector((state) => state.post);
 
   const navigate = useNavigate();
 
@@ -42,7 +40,7 @@ function CreatePost() {
     const type = fileType.split("/")[0];
 
     if (type !== "image") {
-      const message = "Profile should be an image";
+      const message = "Uploaded file should be an image type";
       notify("error", message);
       throw new Error(message);
     }
@@ -68,12 +66,14 @@ function CreatePost() {
     payload.append("image", selectedImage);
 
     dispatch(createPost(payload)).then(() => {
-      if (creatingResult.statusCode === 201) {
-        notify("success", creatingResult.message);
-        navigate("/dashboard");
-      } else {
-        notify("error", creatingResult.message);
+      if (status === "error") {
+        notify("error", "There was an error while creating");
+      } else if (status !== "creating") {
+        navigate("/home");
+        notify("success", "Your new post created successfully");
       }
+
+      console.log(status);
     });
   };
 

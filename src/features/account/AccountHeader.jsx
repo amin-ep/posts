@@ -31,7 +31,7 @@ function AccountHeader({ selectedImage, handleFileChange }) {
         description="Are you sure you want to delete your account?"
         onDelete={handleDeleteUser}
       />
-      <header className="gap-7 text-center relative grid grid-cols-[10rem] grid-rows-[10rem_auto_auto_auto] justify-center">
+      <header className="gap-7 text-center relative grid grid-cols-[auto] grid-rows-[10rem_auto_min-content] justify-center">
         <div className="relative flex items-center justify-center">
           <img
             src={
@@ -45,7 +45,7 @@ function AccountHeader({ selectedImage, handleFileChange }) {
             height={144}
             loading="lazy"
           />
-          <div className="absolute w-14 h-14 flex items-center justify-center rounded-full cursor-pointer right-0 bg-blue-600 text-white text-2xl top-28">
+          <div className="absolute w-14 h-14 flex items-center justify-center rounded-full cursor-pointer right-12 bg-blue-600 text-white text-2xl top-28">
             <HiMiniArrowUpTray className="z-20 cursor-pointer" />
             <input
               type="file"

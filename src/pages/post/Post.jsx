@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import PostActions from "../../features/post/PostActions";
 import { useState, useEffect } from "react";
-import styled from "styled-components";
 import Comments from "../../features/comments/Comments";
 import PostDetails from "../../features/post/PostDetails";
 import { getPostById } from "../../features/post/postSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Container from "../../ui/Container/Container";
+import styles from "./Post.module.css";
 
 function Post() {
   const [openModal, setOpenModal] = useState(false);
@@ -22,26 +23,19 @@ function Post() {
     if (openModal) document.body.style.overflowY = "hidden";
   }, [openModal]);
 
-  const StyledDiv = styled.div`
-    background: #ffffffe6;
-    height: max-content;
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    width: 55rem;
-    max-width: 100%;
-    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    position: relative;
-  `;
-
   return (
-    <StyledDiv>
-      <img
-        src={`http://localhost:3000/static/posts/${post.image}`}
-        alt={post.title}
-        className="h-[245px] object-cover rounded-md sm:h-[335px] md:h-[380px] lg:h-[400px]"
-      />
+    <Container
+      background="white"
+      size="medium"
+      extraClasses={`${styles["card-container"]} rounded-lg`}
+    >
+      <div className="flex items-center justify-center">
+        <img
+          src={`http://localhost:3000/static/posts/${post.image}`}
+          alt={post.title}
+          className="max-w-full max-h-full rounded-lg object-cover"
+        />
+      </div>
       <div className="flex flex-col gap-5 text-stone-900">
         <PostDetails isLoading={isLoading} post={post} />
         <PostActions
@@ -57,7 +51,7 @@ function Post() {
           />
         </div>
       </div>
-    </StyledDiv>
+    </Container>
   );
 }
 

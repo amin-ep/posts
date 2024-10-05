@@ -21,7 +21,7 @@ function Account() {
   };
 
   return (
-    <Container size="small" extraClasses="rounded-lg py-6">
+    <Container size="small" extraClasses="rounded-lg py-6 flex flex-col gap-10">
       <AccountHeader
         selectedImage={selectedImage}
         handleFileChange={handleFileChange}

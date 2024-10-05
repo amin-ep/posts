@@ -184,8 +184,6 @@ const StyledDiv = styled.div`
   background-attachment: fixed;
   background-size: cover;
   display: flex;
-  overflow-y: auto;
-  overflow-x: hidden;
   justify-content: center;
   align-items: center;
 `;

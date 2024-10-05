@@ -96,7 +96,14 @@ function UsersTable() {
             <TableHead>
               <TableRow>
                 {tableColumns.map((item) => (
-                  <TableCell sx={{ minWidth: item.minWidth }} key={item.id}>
+                  <TableCell
+                    sx={{
+                      minWidth: item.minWidth,
+                      color: "#1f2937",
+                      fontWeight: 600,
+                    }}
+                    key={item.id}
+                  >
                     {item.label}
                   </TableCell>
                 ))}
@@ -104,7 +111,7 @@ function UsersTable() {
             </TableHead>
             <TableBody>
               {users?.data?.docs.map((user) => (
-                <TableRow key={user?._id}>
+                <TableRow key={user?._id} sx={{ color: "#2b3542" }}>
                   <MessageModal
                     title="Deleting"
                     isOpen={throwAlert}
@@ -126,10 +133,12 @@ function UsersTable() {
                   <TableCell>{user.role}</TableCell>
                   <TableCell>{formatDate(user.createdAt)}</TableCell>
                   <TableCell>{formatDate(user.updatedAt)}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
                     {user.verified === true ? "Yes" : "Not yet"}
                   </TableCell>
-                  <TableCell>{user.active === true ? "Yes" : "No"}</TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    {user.active === true ? "Yes" : "No"}
+                  </TableCell>
                   <TableCell>
                     <button
                       onClick={() => setThrowAlert(true)}

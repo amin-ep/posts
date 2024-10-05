@@ -1,0 +1,15 @@
+.card-container {
+    display: grid;
+    grid-template-columns: minmax(210px, 400px) 1fr;
+    grid-template-rows: minmax(200px, 300px);
+    grid-gap: 2rem;
+    padding: 1rem;
+    align-items: center;
+}
+
+@media(max-width: 780px) {
+    .card-container {
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+    }
+}

@@ -40,6 +40,10 @@ const reducer = (state, action) => {
     case "logout": {
       return { ...state, isLoggedIn: false };
     }
+
+    case "update": {
+      return { ...state, currentUserData: action.payload };
+    }
     case "error":
       return { ...state, error: true };
     default:
@@ -231,6 +235,14 @@ function AuthProvider({ children }) {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      if (res.status === 200) {
+        dispatch({
+          type: "update",
+          payload: res.data.data.user,
+        });
+      }
+
       return res.data;
     } catch (err) {
       return err;

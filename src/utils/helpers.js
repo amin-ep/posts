@@ -20,19 +20,13 @@ export const formatDate = (date) => {
       formattedDate = `Yesterday at ${createdDateTime}`;
     } else {
       if (currentDate.getFullYear() === createdDate?.getFullYear()) {
-        formattedDate = `At ${createdDate.getDate()} ${createdDate.toLocaleString(
-          "en-GB",
-          {
-            month: "long",
-          }
-        )}`;
+        formattedDate = `At ${createdDate.toLocaleString("en-GB", {
+          month: "long",
+        })} ${createdDate.getDate()}`;
       } else {
-        formattedDate = `At ${createdDate.getDate()} ${createdDate.toLocaleString(
-          "en-GB",
-          {
-            month: "long",
-          }
-        )} ${createdDate.getFullYear()}`;
+        formattedDate = `At  ${createdDate.toLocaleString("en-GB", {
+          month: "long",
+        })} ${createdDate.getDate()} ${createdDate.getFullYear()}`;
       }
     }
   }

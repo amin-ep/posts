@@ -104,10 +104,10 @@ function PostActions({ setOpenModal, postId, likes }) {
       {isLoggedIn && currentUserData?.role === "admin" ? (
         <div className="flex items-center justify-center gap-3 w-full">
           <LinkButton background="blue" to={`/update-post/${postId}`}>
-            Update Post
+            Update
           </LinkButton>
           <LinkButton onClick={handleDeletePost} type="button" background="red">
-            {isDeleting === "deleting" ? "Deleting..." : "Delete Post"}
+            {isDeleting === "deleting" ? "Deleting..." : "Delete"}
           </LinkButton>
         </div>
       ) : (

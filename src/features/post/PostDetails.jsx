@@ -8,16 +8,16 @@ function PostDetails({ isLoading, post }) {
   return (
     <>
       <div className="px-6 py-7 border-b-[1px] border-gray-300">
-        <div className="flex flex-col-reverse gap-5 sm:flex-row justify-between items-center">
-          <h1 className="text-2xl sm:text-5xl">
+        <div className="grid grid-cols-[300px_auto] grid-rows-1">
+          <h1 className="text-2xl sm:text-4xl text-gray-800 break-words font-semibold">
             {isLoading === "loading" ? "Loading..." : post.title}
           </h1>
           <div className="flex items-center gap-2">
-            <p>{formatDate(post.createdAt)}</p>
+            <p className="text-gray-700">{formatDate(post.createdAt)}</p>
             <HiOutlineCalendarDays size={22} />
           </div>
         </div>
-        <p className="text-base text-center sm:text-left sm:text-lg leading-7 mt-6">
+        <p className="text-base text-center sm:text-left sm:text-lg leading-7 mt-6 text-gray-700">
           {isLoading === "loading" ? (
             "Loading..."
           ) : (

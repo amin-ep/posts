@@ -40,7 +40,7 @@ function HeaderActions() {
             <li>
               <Link
                 to="/account"
-                className="grid grid-cols-[auto_50px] grid-rows-[100%] items-center rounded-full border-2 py-1 pl-1 gap-1 border-gray-200 hover:border-white hover:shadow-2xl hover:shadow-black/30 transition duration-300 w-40"
+                className="grid grid-cols-[auto_50px] grid-rows-[100%] items-center rounded-full border-2 py-1 pl-1 gap-1 border-gray-200 hover:border-white hover:shadow-2xl hover:shadow-black/30 transition duration-300 min-w-40"
               >
                 <span>{currentUserData?.username}</span>
                 <img

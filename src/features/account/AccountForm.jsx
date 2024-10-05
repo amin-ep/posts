@@ -5,13 +5,10 @@ import { useInput } from "../../hooks/useInput";
 import { Link } from "react-router-dom";
 import { useNotification } from "../../hooks/useNotification";
 import LinkButton from "../../ui/LinkButton";
-
-const validateUsername = (value) =>
-  value.trim().length <= 12 && value.trim().length >= 5;
-
-const validateEmail = (value) => value.includes("@") && value.includes(".com");
+import { validateEmail, validateUsername } from "../../utils/validators";
 function AccountForm({ selectedImage }) {
   const { currentUserData, loading, updateMe } = useAuthentication();
+  // const [formIsValid, setFormIsValid] = useState(false);
 
   const {
     handleInputBlur: handleUsernameBlur,
@@ -20,7 +17,7 @@ function AccountForm({ selectedImage }) {
     inputHasError: usernameHasError,
     value: enteredUsername,
     reset: resetUsername,
-  } = useInput(validateUsername);
+  } = useInput(validateUsername, currentUserData?.username);
 
   const {
     handleInputChange: handleEmailChange,
@@ -29,17 +26,23 @@ function AccountForm({ selectedImage }) {
     inputHasError: emailHasError,
     value: enteredEmail,
     reset: resetEmail,
-  } = useInput(validateEmail);
+  } = useInput(validateEmail, currentUserData?.email);
 
   const { notify } = useNotification();
 
   let formIsValid = false;
-  if (emailIsValid || usernameIsValid) formIsValid = true;
-  if (
-    currentUserData?.username === enteredUsername ||
-    currentUserData?.email === enteredEmail
-  )
-    formIsValid = false;
+
+  if (emailIsValid && usernameIsValid && !emailHasError && !usernameHasError) {
+    if (
+      enteredEmail !== currentUserData?.email ||
+      enteredUsername !== currentUserData?.username ||
+      selectedImage !== ""
+    ) {
+      formIsValid = true;
+    } else {
+      formIsValid = false;
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

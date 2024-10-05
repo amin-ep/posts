@@ -8,9 +8,9 @@ function PostCard({ image, title, description, likes, comments, id }) {
       <img
         src={`http://localhost:3000/static/posts/${image}`}
         alt={title}
-        className="rounded-t-md w-full h-44 object-cover object-center border-b-blue-600 border-b-[5px]"
+        className="rounded-t-md w-full h-44 object-cover object-center border-b-gray-800 border-b-[5px]"
       />
-      <div className="flex items-center justify-evenly">
+      <div className="flex items-center justify-evenly text-gray-700">
         <span className="flex items-center gap-1">
           <HiOutlineChatBubbleLeftEllipsis size={33} />
           {comments?.length}
@@ -22,8 +22,10 @@ function PostCard({ image, title, description, likes, comments, id }) {
       </div>
 
       <div className="text-left p-4 flex-1">
-        <h1 className="text-stone-900 text-3xl font-semibold">{title}</h1>
-        <p className="ml-3 text-stone-900">
+        <h1 className="text-gray-800 text-3xl font-semibold break-words">
+          {title}
+        </h1>
+        <p className="ml-3 text-gray-700">
           {description.length > 80
             ? description.slice(0, 80) + "..."
             : description}
