@@ -14,12 +14,13 @@ function Verify() {
 
   useEffect(() => {
     verifyAccount(key);
-  }, [key]);
+    console.log(key);
+  }, []);
 
   useEffect(() => {
     if (!loading && !error) {
       const interval = setInterval(function () {
-        if (timer !== 0) navigate("/posts");
+        if (timer === 0) navigate("/home");
         setTimer((t) => t - 1);
       }, 1000);
 
@@ -30,7 +31,7 @@ function Verify() {
   return (
     <div className={styles.verify}>
       <div className="flex items-center justify-center flex-col h-full bg-black/65 overflow-auto text-white">
-        {!error ? (
+        {error === false ? (
           <>
             <header className="flex items-center text-center flex-col justify-center">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase">

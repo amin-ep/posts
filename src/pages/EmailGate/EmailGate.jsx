@@ -2,16 +2,16 @@ import styles from "./EmailGate.module.css";
 import { Link } from "react-router-dom";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { useNotification } from "../../hooks/useNotification";
-import { ToastContainer } from "react-toastify";
-import AuthLayout from "../../ui/AuthLayout";
 
-function EmailMessage() {
+function EmailGate() {
   const { signup, loading, forgetPassword } = useAuthentication();
 
   const currentEmail = sessionStorage.getItem("authEmail");
   const currentUsername = sessionStorage.getItem("authUsername");
   const currentPassword = sessionStorage.getItem("authPassword");
   const previousPageRoute = sessionStorage.getItem("previousRoute");
+
+  console.log(previousPageRoute);
 
   const { notify } = useNotification();
 
@@ -77,4 +77,4 @@ function EmailMessage() {
   );
 }
 
-export default EmailMessage;
+export default EmailGate;

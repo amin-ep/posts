@@ -8,7 +8,7 @@ import { useAuthentication } from "../../contexts/AuthContent";
 import { useInput } from "../../hooks/useInput";
 import Input from "../../ui/Input";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiArrowLongRight } from "react-icons/hi2";
 import { useNotification } from "../../hooks/useNotification";
 import Container from "../../ui/Container/Container";
@@ -21,7 +21,10 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const { signup, loading } = useAuthentication();
+
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const { notify } = useNotification();
 
@@ -93,12 +96,12 @@ function Signup() {
     payload.append("password", enteredPassword);
 
     const result = await signup(payload);
-    console.log(result);
 
     if (result.status === "success") {
       sessionStorage.setItem("authUsername", enteredUsername);
       sessionStorage.setItem("authEmail", enteredEmail);
       sessionStorage.setItem("authPassword", enteredPassword);
+      sessionStorage.setItem("previousRoute", location.pathname);
       navigate("/email-message");
       notify("success", `An email sent to ${enteredEmail}`);
     } else if (result.status === "fail") {

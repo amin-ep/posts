@@ -17,6 +17,7 @@ const initialState = {
   isLoggedIn: false,
   loading: false,
   error: false,
+  errorMessage: "",
 };
 
 const reducer = (state, action) => {
@@ -45,7 +46,7 @@ const reducer = (state, action) => {
       return { ...state, currentUserData: action.payload };
     }
     case "error":
-      return { ...state, error: true };
+      return { ...state, error: true, errorMessage: action.payload };
     default:
       throw new Error("Unknown action type");
   }
@@ -110,6 +111,7 @@ function AuthProvider({ children }) {
     } catch (err) {
       dispatch({
         type: "error",
+        payload: "There was error while logging in. Please try again",
       });
       console.log(err);
     } finally {
@@ -142,13 +144,13 @@ function AuthProvider({ children }) {
           type: "currentUserData",
           payload: data.data,
         });
-      } else if (data.status === "fail") {
-        dispatch({
-          type: "error",
-        });
       }
     } catch (err) {
-      console.error(err);
+      dispatch({
+        type: "error",
+        payload:
+          "There was an error while verifying your email. Please try again!",
+      });
     } finally {
       dispatch({
         type: "notLoading",

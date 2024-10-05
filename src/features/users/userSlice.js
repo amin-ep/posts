@@ -16,7 +16,7 @@ export const fetchGetAllUsers = createAsyncThunk(
       });
       return res.data;
     } catch (err) {
-      console.log(err);
+      return err.response.data.message;
     }
   }
 );
@@ -42,10 +42,7 @@ export const deleteUserById = createAsyncThunk(
 const initialState = {
   status: "idle",
   users: [],
-  result: {
-    statusCode: null,
-    message: "",
-  },
+  errorMessage: "",
 };
 
 const userSlice = createSlice({
@@ -58,7 +55,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchGetAllUsers.fulfilled, (state, action) => {
         state.status = "idle";
-        state.users = action.payload;
+        state.users = action.payload?.data?.docs;
       })
       .addCase(fetchGetAllUsers.rejected, (state) => {
         state.status = "error";
@@ -72,15 +69,10 @@ const userSlice = createSlice({
       .addCase(deleteUserById.fulfilled, (state, action) => {
         state.status = "idle";
         state.users = state.users.filter((el) => el._id !== action.payload);
-        state.result.statusCode = 204;
-        state.result.message = "The user deleted successfully";
-        console.log(action.payload);
       })
       .addCase(deleteUserById.rejected, (state, action) => {
         state.status = "error";
-        state.result.message = action.payload;
-        console.log(action.payload);
-        state.result.statusCode = 500;
+        state.errorMessage = action.payload;
       });
   },
 });
