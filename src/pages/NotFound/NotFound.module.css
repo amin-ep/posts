@@ -1,0 +1,63 @@
+@font-face {
+    src: '/public/fonts/Monoton-Regular.ttf';
+    font-family: Monoton;
+}
+
+
+
+.svg {
+    /*font: 126px Monoton;
+    */
+    margin: 2rem auto;
+    font-size: 306px;
+    background-color: #fff;
+    width: 30rem;
+    border-radius: 999px;
+    -webkit-border-radius: 999px;
+    -moz-border-radius: 999px;
+    -ms-border-radius: 999px;
+    -o-border-radius: 999px;
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    fill: none;
+    stroke-dasharray: 8% 29%;
+    stroke-width: 5px;
+    stroke-dashoffset: 1%;
+    animation: stroke-offset 5.5s infinite linear;
+}
+
+.text:nth-child(1) {
+    stroke: #1c234d;
+    animation-delay: -1;
+}
+
+.text:nth-child(2) {
+    stroke: #000;
+    animation-delay: -2s;
+}
+
+.text:nth-child(3) {
+    stroke: var(--color-blue-700);
+    animation-delay: -3s;
+}
+
+.text:nth-child(4) {
+    stroke: var(--color-google-red);
+    animation-delay: -4s;
+}
+
+.text:nth-child(5) {
+    stroke: var(--color-google-yellow);
+    animation-delay: -5s;
+}
+
+@keyframes stroke-offset {
+    100% {
+        stroke-dashoffset: -35%;
+    }
+}

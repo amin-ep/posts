@@ -23,6 +23,7 @@ const ChangePassword = lazy(() =>
 const ResetPassword = lazy(() => import("./pages/resetPassword/ResetPassword"));
 const UpdatePost = lazy(() => import("./pages/updatePost/UpdatePost"));
 const About = lazy(() => import("./pages/about/About"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route path="account" element={<Account />} />
               <Route path="update-post/:id" element={<UpdatePost />} />
               <Route path="signup" element={<Signup />} />
+              <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="forgetPassword" element={<ForgetPassword />} />
@@ -49,6 +51,7 @@ function App() {
             <Route path="verify/:key" element={<Verify />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
       </Suspense>
