@@ -32,7 +32,7 @@ function Comments({ openModal, onClick, postId }) {
     >
       <header
         id="header"
-        className="flex justify-between text-stone-900 text-2xl border-b-2 items-center p-5 border-stone-200 pb-5"
+        className="flex justify-between text-gray-800 text-2xl border-b-2 items-center p-5 border-stone-200 pb-5"
       >
         <h1>
           Comments (

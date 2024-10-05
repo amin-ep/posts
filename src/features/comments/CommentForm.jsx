@@ -7,6 +7,10 @@ import { fetchCreateCommentOnPost } from "./commentSlice";
 // import Cookies from "js-cookie";
 import { IoSendOutline } from "react-icons/io5";
 import { useNotification } from "../../hooks/useNotification";
+import Textarea from "../../ui/Textarea";
+import LinkButton from "../../ui/LinkButton";
+import styled from "styled-components";
+import styles from "./CommentForm.module.css";
 
 const validateComment = (value) => value.length >= 1 && value.length <= 200;
 
@@ -50,37 +54,43 @@ function CommentForm({ postId, replyTo }) {
     }
   };
 
+  const Form = styled.form`
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "form-header form-header form-header" "comment-input comment-input comment-input" "comment-submit . .";
+  `;
+
   return (
     <>
-      <form onSubmit={handleSubmit} className="hidden sm:block">
-        <header className="text-stone-900 py-4 flex justify-between items-center">
+      <Form
+        onSubmit={handleSubmit}
+        className="hidden sm:grid"
+        id="comment-form"
+      >
+        <header
+          className={`text-gray-700 py-4 flex justify-between items-center ${styles.header}`}
+        >
           <h2 className="text-3xl">Leave Your Comment Here</h2>
         </header>
-        <textarea
-          placeholder="Leave comment..."
-          id="comment"
-          className={`${
-            inputHasError
-              ? `bg-red-300 border-red-500 text-stone-900 placeholder:text-stone-700`
-              : `bg-white border-gray-200`
-          } px-5 py-3 border-2 rounded-md w-full h-60 resize-y outline-none transition-all duration-500`}
-          value={enteredComment}
-          onChange={handleInputChange}
-          onBlur={handleInputBlur}
-        ></textarea>
-        {inputHasError && (
-          <p className="text-error">
-            Please Input a valid comment (1-250 characters)
-          </p>
-        )}
-        <button
-          className="bg-blue-600 rounded-full px-5 py-3 text-white disabled:cursor-not-allowed w-2/12"
-          type="submit"
-          disabled={!formIsValid}
-        >
-          {isLoading ? "Loading..." : "Send"}
-        </button>
-      </form>
+        <div className={styles["textarea-wrapper"]}>
+          <Textarea
+            placeholder="Leave comment..."
+            id="comment"
+            value={enteredComment}
+            onChange={handleInputChange}
+            onBlur={handleInputBlur}
+          ></Textarea>
+          {inputHasError && (
+            <p className="text-error">
+              Please Input a valid comment (1-250 characters)
+            </p>
+          )}
+        </div>
+        <div className={styles["from-action"]}>
+          <LinkButton background="blue" type="submit" disabled={!formIsValid}>
+            {isLoading ? "Loading..." : "Send"}
+          </LinkButton>
+        </div>
+      </Form>
       <form
         className="fixed bottom-0 z-50 mb-0 left-0 w-full h-16 flex flex-row sm:hidden"
         onSubmit={handleSubmit}
@@ -95,7 +105,7 @@ function CommentForm({ postId, replyTo }) {
         ></textarea>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 outline-none flex items-center justify-center w-16 h-16"
+          className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 text-white outline-none flex items-center justify-center w-16 h-16"
         >
           <IoSendOutline size={23} />
         </button>

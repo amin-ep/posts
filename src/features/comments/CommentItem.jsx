@@ -24,7 +24,7 @@ function CommentItem({
         alt={username}
         className="w-14 h-14 md:w-24 md:h-24 object-cover rounded-full"
       />
-      <div className="text-stone-900 flex flex-col">
+      <div className="text-gray-700 flex flex-col">
         <div className="flex justify-between items-center">
           <h2 className="text-xl">{username}</h2>
           <p className="italic hidden items-center gap-2 md:flex">
@@ -34,7 +34,7 @@ function CommentItem({
             </span>
           </p>
         </div>
-        <div className="md:p-4 flex flex-col justify-between bg-white md:shadow-lg md:shadow-black/30 min-h-40 rounded-md relative">
+        <div className="md:p-4 flex flex-col text-gray-700 justify-between bg-white md:shadow-lg md:shadow-black/30 min-h-40 rounded-md relative">
           <div className="px-4 pt-2 pb-8">
             {content.split("\n").map((text, index) => (
               <p key={index}>

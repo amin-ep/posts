@@ -67,7 +67,7 @@ function CommentItemsAction({
       </div>
 
       <div className="block md:hidden">
-        <p className="italic flex items-center gap-2">
+        <p className="italic flex items-center gap-2 text-gray-800">
           {formatDate(createdAt)}
           <span className="text-lg">
             <HiOutlineCalendarDays />

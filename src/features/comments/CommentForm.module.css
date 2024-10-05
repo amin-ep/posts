@@ -1,0 +1,11 @@
+.header {
+    grid-area: form-header;
+}
+
+.textarea-wrapper {
+    grid-area: comment-input;
+}
+
+.form-action {
+    grid-area: comment-submit;
+}
