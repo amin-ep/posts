@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthentication } from "../../contexts/AuthContent";
 import styles from "./Verify.module.css";
@@ -12,10 +12,14 @@ function Verify() {
   const navigate = useNavigate();
   const { key } = useParams();
 
+  const verifyUser = useCallback(async () => {
+    const result = await verifyAccount(key);
+    console.log(result);
+  }, [key]);
+
   useEffect(() => {
-    verifyAccount(key);
-    console.log(key);
-  }, []);
+    verifyUser();
+  }, [verifyUser]);
 
   useEffect(() => {
     if (!loading && !error) {

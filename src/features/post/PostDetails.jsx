@@ -31,7 +31,7 @@ function PostDetails({ isLoading, post }) {
           )}
           {post?.description?.length > 120 && (
             <button
-              className="text-blue-500 hover:text-blue-600"
+              className="text-indigo-700 hover:text-indigo-900"
               onClick={() => setShowMore((s) => !s)}
             >
               {!showMore ? " show more" : " show less"}

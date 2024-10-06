@@ -208,13 +208,13 @@ function Signup() {
         <div
           className={`${styles["form-actions"]} grid grid-cols-2 gap-4 items-center`}
         >
-          <LinkButton disabled={!formIsValid} type="submit" background="blue">
+          <LinkButton disabled={!formIsValid} type="submit" background="indigo">
             {loading ? "loading" : "Signup"}
           </LinkButton>
           <div className="flex items-center justify-center">
             <Link
               to="/login"
-              className="text-gray-800 font-semibold w-min hover:text-blue-600 transition-all duration-300 flex justify-center items-center"
+              className="text-gray-700 font-semibold w-min hover:text-indigo-900 transition-all duration-300 flex justify-center items-center"
             >
               Login
               <HiArrowLongRight size={25} />{" "}

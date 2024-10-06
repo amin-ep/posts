@@ -42,7 +42,7 @@
 }
 
 .text:nth-child(3) {
-    stroke: var(--color-blue-700);
+    stroke: var(--color-indigo-700);
     animation-delay: -3s;
 }
 

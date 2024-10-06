@@ -22,7 +22,7 @@ function HeaderActions() {
           <>
             <li>
               <NavLink
-                className="bg-transparent flex items-center text-blue-700 hover:shadow-xl p-3 hover:text-stone-900 transition-all duration-300 rounded-full"
+                className="bg-transparent flex items-center hover:border-solid hover:border-indigo-600 hover:bg-indigo-600 hover:text-white text-indigo-700 border-2 border-indigo-700 py-2 px-4 border-dashed transition-all duration-300 rounded-md"
                 to="login"
               >
                 <HiMiniArrowRightEndOnRectangle size={23} />
@@ -30,7 +30,10 @@ function HeaderActions() {
               </NavLink>
             </li>
             <li>
-              <NavLink className="btn bg-blue-600 text-white" to="signup">
+              <NavLink
+                className="bg-indigo-700 text-white py-2 px-4 border-2 border-indigo-700 rounded-md hover:bg-indigo-900 hover:border-indigo-900"
+                to="signup"
+              >
                 Signup
               </NavLink>
             </li>
@@ -51,7 +54,12 @@ function HeaderActions() {
               </Link>
             </li>
             <li>
-              <LinkButton onClick={handleLogout} width="100px" type="button">
+              <LinkButton
+                onClick={handleLogout}
+                width="100px"
+                type="button"
+                background="dark"
+              >
                 Logout
               </LinkButton>
             </li>

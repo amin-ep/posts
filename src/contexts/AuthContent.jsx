@@ -9,6 +9,7 @@ import {
 import Cookie from "js-cookie";
 import axios from "axios";
 import { BASE_URL } from "../utils/helpers";
+import { useNotification } from "../hooks/useNotification";
 
 const AuthContext = createContext();
 
@@ -158,6 +159,8 @@ function AuthProvider({ children }) {
     }
   };
 
+  const { notify } = useNotification();
+
   const getMe = useCallback(async () => {
     try {
       const token = Cookie.get("token");
@@ -178,6 +181,8 @@ function AuthProvider({ children }) {
             type: "currentUserData",
             payload: data.data.doc,
           });
+        } else {
+          notify("error", data.message);
         }
       }
     } catch (err) {

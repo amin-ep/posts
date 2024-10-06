@@ -2,6 +2,7 @@ import styles from "./EmailGate.module.css";
 import { Link } from "react-router-dom";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { useNotification } from "../../hooks/useNotification";
+import LinkButton from "../../ui/LinkButton";
 
 function EmailGate() {
   const { signup, loading, forgetPassword } = useAuthentication();
@@ -50,14 +51,14 @@ function EmailGate() {
             `An Email sent to ${currentEmail}. Please checkout email`}
         </h5>
 
-        <div className="flex justify-center gap-5 mt-7 w-full">
-          <button
+        <div className="grid grid-cols-1 sm:grid-cols-[180px_1fr] p-4 gap-3">
+          <LinkButton
             type="button"
             className="bg-stone-800 rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
             onClick={handleResendButtonClick}
           >
             {loading ? "Loading..." : "Resend"}
-          </button>
+          </LinkButton>
           <Link
             to="https://mail.google.com/mail/u/0/#inbox"
             className={styles["mail-link"]}

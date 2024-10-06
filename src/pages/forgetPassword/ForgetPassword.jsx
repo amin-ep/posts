@@ -46,7 +46,7 @@ function ForgetPassword() {
         className="flex items-center justify-center h-dvh"
       >
         <form
-          className="p-10 rounded-lg shadow-2xl bg-blue-500 shadow-stone-900 flex flex-col gap-4"
+          className="p-10 rounded-lg shadow-2xl bg-indigo-700 shadow-stone-900 flex flex-col gap-4"
           onSubmit={handleSubmit}
         >
           <header className="text-stone-100 font-medium text-3xl text-center p-5">

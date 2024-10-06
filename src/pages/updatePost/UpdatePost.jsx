@@ -175,7 +175,7 @@ function UpdatePost() {
           )}
         </div>
         <div>
-          <LinkButton type="submit" disabled={!formIsValid} background="dark">
+          <LinkButton type="submit" disabled={!formIsValid} background="indigo">
             {loading ? "Loading..." : "Update"}
           </LinkButton>
         </div>

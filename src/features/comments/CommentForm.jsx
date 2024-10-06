@@ -86,7 +86,7 @@ function CommentForm({ postId, replyTo }) {
           )}
         </div>
         <div className={styles["from-action"]}>
-          <LinkButton background="blue" type="submit" disabled={!formIsValid}>
+          <LinkButton background="indigo" type="submit" disabled={!formIsValid}>
             {isLoading ? "Loading..." : "Send"}
           </LinkButton>
         </div>
@@ -105,7 +105,7 @@ function CommentForm({ postId, replyTo }) {
         ></textarea>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 text-white outline-none flex items-center justify-center w-16 h-16"
+          className="bg-indigo-500 hover:bg-indigo-600 focus:bg-indigo-600 text-white outline-none flex items-center justify-center w-16 h-16"
         >
           <IoSendOutline size={23} />
         </button>

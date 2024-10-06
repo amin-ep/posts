@@ -95,7 +95,7 @@ function AccountForm({ selectedImage }) {
           defaultValue={currentUserData?.email}
         />
         <div className="flex flex-col sm:flex-row sm:gap-8 sm:px-10 w-40 justify-center items-center">
-          <LinkButton disabled={!formIsValid} type="submit" background="dark">
+          <LinkButton disabled={!formIsValid} type="submit" background="indigo">
             {loading ? "Loading..." : "Edit"}
           </LinkButton>
         </div>

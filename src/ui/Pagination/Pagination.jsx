@@ -6,17 +6,22 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 function Pagination({ totalPages, currentPage, setCurrentPage }) {
   const ButtonContainer = styled.div`
     display: grid;
-    justify-content: flex-start;
+    justify-content: center;
     max-width: 90%;
     grid-gap: 6px;
     margin: 1.5rem auto;
     background-color: transparent;
-    overflow-x: auto;
+    overflow: hidden;
     padding: 0.5rem 1.75rem;
     align-items: center;
 
     &::-webkit-scrollbar-thumb {
       display: none;
+    }
+
+    @media (max-width: 700px) {
+      overflow-x: auto;
+      justify-content: flex-start;
     }
   `;
 
