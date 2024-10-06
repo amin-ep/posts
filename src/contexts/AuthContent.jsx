@@ -40,7 +40,7 @@ const reducer = (state, action) => {
     }
 
     case "logout": {
-      return { ...state, isLoggedIn: false };
+      return { ...state, isLoggedIn: false, currentUserData: {} };
     }
 
     case "update": {

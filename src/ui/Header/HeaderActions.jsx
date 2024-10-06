@@ -3,6 +3,13 @@ import LinkButton from "../LinkButton";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { HiMiniArrowRightEndOnRectangle } from "react-icons/hi2";
 import { useNotification } from "../../hooks/useNotification";
+import styled from "styled-components";
+
+const StyledDiv = styled.div`
+  @media (max-width: 840px) {
+    display: none;
+  }
+`;
 
 function HeaderActions() {
   const { isLoggedIn, logout, currentUserData } = useAuthentication();
@@ -16,7 +23,7 @@ function HeaderActions() {
     notify("success", "You are now logout");
   };
   return (
-    <div>
+    <StyledDiv className="place-self-end">
       <ul className="flex items-center gap-4">
         {!isLoggedIn ? (
           <>
@@ -66,7 +73,7 @@ function HeaderActions() {
           </div>
         )}
       </ul>
-    </div>
+    </StyledDiv>
   );
 }
 
