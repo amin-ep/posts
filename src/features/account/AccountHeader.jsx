@@ -4,8 +4,9 @@ import { formatDate } from "../../utils/helpers";
 import { useAuthentication } from "../../contexts/AuthContent";
 import LinkButton from "../../ui/LinkButton";
 import { useNavigate } from "react-router-dom";
-import AlertModal from "../../ui/AlertModal";
 import { useState } from "react";
+import MessageModal from "../../ui/MessageModal";
+import { useNotification } from "../../hooks/useNotification";
 
 function AccountHeader({ selectedImage, handleFileChange }) {
   const { currentUserData, loading, deleteMe } = useAuthentication();
@@ -13,23 +14,27 @@ function AccountHeader({ selectedImage, handleFileChange }) {
 
   const navigate = useNavigate();
 
+  const { notify } = useNotification();
+
   const handleDeleteUser = async () => {
     const result = await deleteMe();
 
     if (result.status === 204) {
       navigate("/signup");
+      notify("success", "Your account deleted successfully");
+    } else {
+      notify("error", "Something went wrong while deleting your account");
     }
-    alert("");
   };
 
   return (
     <>
-      <AlertModal
-        onClose={() => setThrowAlert(false)}
-        isOpen={throwAlert}
-        title="Delete me"
+      <MessageModal
         description="Are you sure you want to delete your account?"
-        onDelete={handleDeleteUser}
+        isOpen={throwAlert}
+        onClose={() => setThrowAlert(false)}
+        title="Delete My Account"
+        onAction={handleDeleteUser}
       />
       <header className="gap-7 text-center relative grid grid-cols-[auto] grid-rows-[10rem_auto_min-content] justify-center">
         <div className="relative flex items-center justify-center">

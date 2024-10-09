@@ -26,7 +26,7 @@ function UsersTable() {
   const tableColumns = [
     {
       id: customID + "Image",
-      label: "Image",
+      label: "",
       minWidth: 120,
     },
     {
@@ -66,7 +66,7 @@ function UsersTable() {
     },
     {
       id: customID + "delete",
-      label: "Delete",
+      label: "",
       minWidth: 60,
     },
   ];

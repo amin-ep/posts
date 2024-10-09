@@ -1,8 +1,7 @@
-import styles from "./EmailGate.module.css";
-import { Link } from "react-router-dom";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { useNotification } from "../../hooks/useNotification";
 import LinkButton from "../../ui/LinkButton";
+import Container from "../../ui/Container/Container";
 
 function EmailGate() {
   const { signup, loading, forgetPassword } = useAuthentication();
@@ -11,8 +10,6 @@ function EmailGate() {
   const currentUsername = sessionStorage.getItem("authUsername");
   const currentPassword = sessionStorage.getItem("authPassword");
   const previousPageRoute = sessionStorage.getItem("previousRoute");
-
-  console.log(previousPageRoute);
 
   const { notify } = useNotification();
 
@@ -41,9 +38,13 @@ function EmailGate() {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center linear-background h-dvh">
-        <h5 className="text-stone-100 text-2xl text-center">
+    <div className="flex flex-col items-center justify-center bg-white h-dvh">
+      <Container
+        size="extra-small"
+        extraClasses="flex flex-col items-center"
+        background="white"
+      >
+        <h5 className="text-gray-900 text-lg text-center">
           {previousPageRoute === "/signup"
             ? `An Email sent to ${currentEmail}. Please checkout your email account and verify your email!`
             : "This is email message gate"}
@@ -54,27 +55,14 @@ function EmailGate() {
         <div className="grid grid-cols-1 sm:grid-cols-[180px_1fr] p-4 gap-3">
           <LinkButton
             type="button"
-            className="bg-stone-800 rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
+            background="indigo"
             onClick={handleResendButtonClick}
           >
             {loading ? "Loading..." : "Resend"}
           </LinkButton>
-          <Link
-            to="https://mail.google.com/mail/u/0/#inbox"
-            className={styles["mail-link"]}
-            target="_blank"
-          >
-            Go To Gmail
-            <div className={styles["span-wrapper"]}>
-              <span className={styles["s1"]}></span>
-              <span className={styles["s2"]}></span>
-              <span className={styles["s3"]}></span>
-              <span className={styles["s4"]}></span>
-            </div>
-          </Link>
         </div>
-      </div>
-    </>
+      </Container>
+    </div>
   );
 }
 

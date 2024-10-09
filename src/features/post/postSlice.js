@@ -5,13 +5,13 @@ import { BASE_URL } from "../../utils/helpers";
 
 export const fetchAllPosts = createAsyncThunk(
   "post/fetchPosts",
-  async function fetchAllPosts(page) {
+  async function fetchAllPosts(page, { rejectWithValue }) {
     try {
       const res = await fetch(`${BASE_URL}/posts?page=${page}`);
       const data = await res.json();
       return data;
     } catch (err) {
-      console.log(err);
+      return rejectWithValue(err?.response?.message || err.message);
     }
   }
 );
@@ -91,10 +91,6 @@ const initialState = {
   data: [],
   totalPages: null,
   post: {},
-  result: {
-    statusCode: null,
-    message: "",
-  },
 };
 
 const postSlice = createSlice({
@@ -112,7 +108,6 @@ const postSlice = createSlice({
       })
       .addCase(fetchAllPosts.rejected, (state) => {
         state.status = "error";
-        state.error = "There was an error while fetching data";
       });
 
     builder
@@ -121,14 +116,10 @@ const postSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, action) => {
         state.status = "created";
-        state.result.statusCode = 201;
-        state.result.message = "Your new post published successfully";
         state.data.unshift(action.payload);
       })
-      .addCase(createPost.rejected, (state, action) => {
+      .addCase(createPost.rejected, (state) => {
         state.status = "error";
-        state.error = action.payload;
-        state.result.statusCode = 500;
         state.result.message = "Something went wrong while creating post";
       });
     builder
@@ -151,14 +142,10 @@ const postSlice = createSlice({
       .addCase(deletePostById.fulfilled, (state) => {
         state.status = "idle";
         state.post = {};
-        state.result.statusCode = 204;
-        state.result.message = "Your post deleted successfully";
       })
       .addCase(deletePostById.rejected, (state) => {
         state.status = "error";
         state.error = "There was an error while deleting post";
-        state.result.statusCode = 500;
-        state.result.message = "There was an error while deleting your post";
       });
 
     builder
@@ -168,13 +155,9 @@ const postSlice = createSlice({
       .addCase(updatePostById.fulfilled, (state, action) => {
         state.status = "idle";
         state.post = action.payload;
-        state.result.statusCode = 200;
-        state.result.message = "Your post updated successfully";
       })
       .addCase(updatePostById.rejected, (state) => {
         state.status = "error";
-        state.result.message = "An error occurred while updating post";
-        state.result.statusCode = 500;
       });
   },
 });

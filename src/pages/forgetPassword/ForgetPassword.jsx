@@ -3,6 +3,8 @@ import Input from "../../ui/Input";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../ui/AuthLayout";
+import Container from "../../ui/Container/Container";
+import LinkButton from "../../ui/LinkButton";
 
 const validateEmail = (value) => value.includes("@") && value.includes(".com");
 
@@ -35,18 +37,14 @@ function ForgetPassword() {
   };
 
   return (
-    <div
-      className="bg-fixed bg-no-repeat bg-center bg-cover"
-      style={{
-        backgroundImage: `url(${"/public/images/laptop-background.jpg"})`,
-      }}
-    >
-      <AuthLayout
-        background="secondary"
-        className="flex items-center justify-center h-dvh"
+    <div className="linear-background bg-fixed h-dvh bg-no-repeat bg-center bg-cover overflow-auto">
+      <Container
+        background="transparent"
+        size="extra-small"
+        extraClasses="mt-[10%] px-0 flex items-center justify-center"
       >
         <form
-          className="p-10 rounded-lg shadow-2xl bg-indigo-700 shadow-stone-900 flex flex-col gap-4"
+          className="p-16 rounded-lg flex flex-col gap-2 bg-white/15 backdrop-blur-lg"
           onSubmit={handleSubmit}
         >
           <header className="text-stone-100 font-medium text-3xl text-center p-5">
@@ -67,19 +65,19 @@ function ForgetPassword() {
             )}
           </div>
           <div className="flex flex-col gap-2 justify-center items-center">
-            <button
+            <LinkButton
               disabled={!formIsValid}
-              className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
               type="submit"
+              background="indigo"
             >
               {loading ? "Loading..." : "Reset My Password"}
-            </button>
+            </LinkButton>
             <Link className="text-white" to={-1}>
               Back To Login
             </Link>
           </div>
         </form>
-      </AuthLayout>
+      </Container>
     </div>
   );
 }

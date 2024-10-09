@@ -10,6 +10,7 @@ import { useNotification } from "../../hooks/useNotification";
 import HomeLink from "../../ui/HomeLink";
 import EyeButton from "../../ui/EyeButton";
 import { useState, useCallback } from "react";
+import Container from "../../ui/Container/Container";
 
 function Login() {
   const { login, loading } = useAuthentication();
@@ -58,59 +59,68 @@ function Login() {
 
   return (
     <>
-      <AuthLayout background="primary">
-        <HomeLink />
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <header className="flex items-center justify-center flex-col text-white">
-            <HiOutlineUser
-              size={100}
-              className="border-2 border-white rounded-full p-4"
-            />
-            <h1 className="text-3xl font-semibold">Login</h1>
-          </header>
+      <div className="linear-background h-dvh bg-fixed">
+        <Container
+          size="extra-small"
+          extraClasses="mt-0 flex items-center justify-center"
+          background="transparent"
+        >
+          <HomeLink />
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-3 mt-[25%]"
+          >
+            <header className="flex items-center justify-center flex-col text-white">
+              <HiOutlineUser
+                size={100}
+                className="border-2 border-white rounded-full p-4"
+              />
+              <h1 className="text-3xl font-semibold">Login</h1>
+            </header>
 
-          <Input
-            id="email"
-            placeholder="E-Mail"
-            onBlur={handleEmailBlur}
-            onChange={handleEmailChange}
-            value={enteredEmail}
-            type="text"
-            background="bg-white"
-            hasError={emailHasError}
-          />
-          <div className="relative">
-            <EyeButton
-              isShown={showPassword}
-              onClick={() => setShowPassword((show) => !show)}
-              extraStyles="top-[11px] right-4"
-            />
             <Input
-              id="password"
-              placeholder="Password"
-              onBlur={handlePasswordBlur}
-              onChange={handlePasswordChange}
-              value={enteredPassword}
-              type={showPassword ? "text" : "password"}
-              hasError={passwordHasError}
+              id="email"
+              placeholder="E-Mail"
+              onBlur={handleEmailBlur}
+              onChange={handleEmailChange}
+              value={enteredEmail}
+              type="text"
               background="bg-white"
+              hasError={emailHasError}
             />
-          </div>
+            <div className="relative">
+              <EyeButton
+                isShown={showPassword}
+                onClick={() => setShowPassword((show) => !show)}
+                extraStyles="top-[11px] right-4"
+              />
+              <Input
+                id="password"
+                placeholder="Password"
+                onBlur={handlePasswordBlur}
+                onChange={handlePasswordChange}
+                value={enteredPassword}
+                type={showPassword ? "text" : "password"}
+                hasError={passwordHasError}
+                background="bg-white"
+              />
+            </div>
 
-          <div className="flex">
-            <button
-              disabled={!formIsValid}
-              className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
-            >
-              {loading ? "Loading..." : "Login"}
-            </button>
-          </div>
-          <div className="flex flex-col justify-center items-center">
-            <Link to="/forgetPassword">Forget Password?</Link>
-            <Link to="/signup">Do not have account?</Link>
-          </div>
-        </form>
-      </AuthLayout>
+            <div className="flex">
+              <button
+                disabled={!formIsValid}
+                className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
+              >
+                {loading ? "Loading..." : "Login"}
+              </button>
+            </div>
+            <div className="flex flex-col justify-center items-center text-white mt-4">
+              <Link to="/forgetPassword">Forget Password?</Link>
+              <Link to="/signup">Do not have account?</Link>
+            </div>
+          </form>
+        </Container>
+      </div>
     </>
   );
 }

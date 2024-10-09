@@ -10,6 +10,7 @@ function Input({
   extraStyles,
   placeholder,
   defaultValue,
+  inputMode = "text",
 }) {
   return (
     <input
@@ -27,6 +28,7 @@ function Input({
       } px-5 py-3 rounded-full w-full outline-none border-[1px] focus:border-indigo-700 border-gray-300 transition-all duration-500 focus:bg-white focus:shadow-2xl focus:shadow-black/45 ${extraStyles}`}
       placeholder={placeholder}
       defaultValue={defaultValue}
+      inputMode={inputMode}
     />
   );
 }

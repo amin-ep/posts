@@ -40,7 +40,7 @@ const reducer = (state, action) => {
     }
 
     case "logout": {
-      return { ...state, isLoggedIn: false, currentUserData: {} };
+      return { ...state, isLoggedIn: false, currentUserData: null };
     }
 
     case "update": {
@@ -123,7 +123,7 @@ function AuthProvider({ children }) {
   };
 
   // VERIFY ACCOUNT
-  const verifyAccount = async (key) => {
+  const verifyAccount = async (key, payload) => {
     try {
       dispatch({
         type: "isLoading",
@@ -133,6 +133,7 @@ function AuthProvider({ children }) {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
 
@@ -146,12 +147,9 @@ function AuthProvider({ children }) {
           payload: data.data,
         });
       }
+      return data.status;
     } catch (err) {
-      dispatch({
-        type: "error",
-        payload:
-          "There was an error while verifying your email. Please try again!",
-      });
+      return err;
     } finally {
       dispatch({
         type: "notLoading",

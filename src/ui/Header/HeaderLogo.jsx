@@ -1,7 +1,6 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
 const HeaderLogo = memo(function HeaderLogo() {
-  console.log("logo");
   return (
     <div className="flex items-center justify-start">
       <Link className="w-28 h-full">

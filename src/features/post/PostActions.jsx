@@ -20,9 +20,7 @@ import { deletePostById } from "./postSlice";
 function PostActions({ setOpenModal, postId, likes }) {
   const [toggleLike, setToggleLike] = useState(false);
   const { currentUserData, isLoggedIn } = useAuthentication();
-  const { status: isDeleting, result: deletingResult } = useSelector(
-    (state) => state.post
-  );
+  const { status: isDeleting } = useSelector((state) => state.post);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,22 +56,16 @@ function PostActions({ setOpenModal, postId, likes }) {
   };
 
   const handleDeletePost = useCallback(() => {
-    dispatch(deletePostById(postId));
-
-    if (deletingResult.statusCode === 204) {
-      notify("success", deletingResult.message);
-      navigate("/dashboard");
-    } else {
-      notify("error", deletingResult.message);
-    }
-  }, [
-    dispatch,
-    postId,
-    deletingResult.statusCode,
-    deletingResult.message,
-    notify,
-    navigate,
-  ]);
+    dispatch(deletePostById(postId))
+      .unwrap()
+      .then(() => {
+        notify("success", "Post deleted successfully");
+        navigate("/home");
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        notify("error", rejectedValueOrSerializedError);
+      });
+  }, [dispatch, postId, notify, navigate]);
 
   const handleOpenComment = () => {
     if (isLoggedIn) {

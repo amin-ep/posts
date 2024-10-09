@@ -110,9 +110,9 @@ body {
             transparent 4%,
             transparent 96%),
         linear-gradient(90deg,
-            var(--color-blue-500),
-            var(--color-blue-600),
-            var(--color-blue-700));
+            var(--color-indigo-500),
+            var(--color-indigo-600),
+            var(--color-indigo-700));
 
     background-size: cover;
     background-attachment: fixed;
