@@ -2,9 +2,9 @@ import { useInput } from "../../hooks/useInput";
 import Input from "../../ui/Input";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { Link, useNavigate } from "react-router-dom";
-import AuthLayout from "../../ui/AuthLayout";
 import Container from "../../ui/Container/Container";
 import LinkButton from "../../ui/LinkButton";
+import HomeLink from "../../ui/HomeLink";
 
 const validateEmail = (value) => value.includes("@") && value.includes(".com");
 
@@ -38,6 +38,7 @@ function ForgetPassword() {
 
   return (
     <div className="linear-background bg-fixed h-dvh bg-no-repeat bg-center bg-cover overflow-auto">
+      <HomeLink />
       <Container
         background="transparent"
         size="extra-small"
@@ -65,11 +66,7 @@ function ForgetPassword() {
             )}
           </div>
           <div className="flex flex-col gap-2 justify-center items-center">
-            <LinkButton
-              disabled={!formIsValid}
-              type="submit"
-              background="indigo"
-            >
+            <LinkButton disabled={!formIsValid} type="submit" background="dark">
               {loading ? "Loading..." : "Reset My Password"}
             </LinkButton>
             <Link className="text-white" to={-1}>

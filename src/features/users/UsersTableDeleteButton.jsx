@@ -10,7 +10,7 @@ import { useNotification } from "../../hooks/useNotification";
 function UsersTableDeleteButton({ userId }) {
   const [throwAlert, setThrowAlert] = useState(false);
 
-  const { status, errorMessage } = useSelector((state) => state.user);
+  const { errorMessage } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const { notify } = useNotification();

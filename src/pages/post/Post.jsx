@@ -12,7 +12,7 @@ import NotFound from "../../pages/NotFound/NotFound";
 
 function Post() {
   const [openModal, setOpenModal] = useState(false);
-  const { post, status: isLoading } = useSelector((state) => state.post);
+  const { post, status } = useSelector((state) => state.post);
 
   const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ function Post() {
     dispatch(getPostById(id));
   }, [id, dispatch]);
 
-  if (Object.keys(post).length === 0) return <NotFound />;
+  if (status === "idle" && Object.keys(post).length === 0) return <NotFound />;
 
   return (
     <Container
@@ -37,7 +37,7 @@ function Post() {
         commentQuantity={post?.comments?.length}
       />
       <div className="flex flex-col gap-5 text-stone-900">
-        <PostDetails isLoading={isLoading} post={post} />
+        <PostDetails isLoading={status} post={post} />
         <PostActions
           setOpenModal={setOpenModal}
           postId={post?._id}

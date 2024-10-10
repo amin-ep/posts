@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { formatDate } from "../../utils/helpers";
 
-function CommentReply({ image, username, createdAt, content, replyTarget }) {
-  console.log(replyTarget);
+function CommentReply({ image, username, createdAt, content }) {
   return (
     <div className="bg-gray-200 grid p-3 w-full mx-auto rounded-lg ">
       <div className="flex justify-between items-center">

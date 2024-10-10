@@ -1,28 +1,49 @@
-import styles from "./NotFound.module.css";
+import styled from "styled-components";
+import LinkButton from "../../ui/LinkButton";
+import Container from "../../ui/Container/Container";
+import { useNavigate } from "react-router-dom";
+
+const Heading = styled.div`
+  font-size: 300px;
+  font-weight: 900;
+  background: url("/public/images/galaxy-background.jpg");
+  background-clip: text;
+  -moz-background-clip: text;
+  -webkit-background-clip: text;
+  background-size: cover;
+  color: transparent;
+`;
+
+const Paragraph = styled.p`
+  color: var(--color-gray-900);
+  font-size: 18px;
+`;
 
 function NotFound() {
+  const navigate = useNavigate();
+
   return (
-    <div className="h-dvh linear-background">
-      <div className="flex flex-col items-center">
-        <svg className={styles.svg} viewBox="0 0 960 300">
-          <symbol id="s-text">
-            <text textAnchor="middle" x="50%" y="50%">
-              404
-            </text>
-          </symbol>
-
-          <g className="g-ants">
-            <use xlinkHref="#s-text" className={styles.text}></use>
-            <use xlinkHref="#s-text" className={styles.text}></use>
-            <use xlinkHref="#s-text" className={styles.text}></use>
-            <use xlinkHref="#s-text" className={styles.text}></use>
-            <use xlinkHref="#s-text" className={styles.text}></use>
-          </g>
-        </svg>
-
-        <h1>Page Not Found</h1>
-        <a href="#">Back to Home</a>
-      </div>
+    <div className="h-dvh bg-white">
+      <Container
+        size="small"
+        extraClasses="mt-0 text-center"
+        background="transparent"
+      >
+        <div className="grid grid-cols-1 gap-4">
+          <Heading className="bg-clip-text">Oops!</Heading>
+          <Paragraph className="uppercase">404 - Page not found</Paragraph>
+          <Paragraph>it looks like you are in a wrong path!</Paragraph>
+          <div className="w-64 mt-0 mx-auto">
+            <LinkButton
+              type="button"
+              background="indigo"
+              onClick={() => navigate(-1)}
+            >
+              Back To Previous Page
+            </LinkButton>
+          </div>
+        </div>
+      </Container>
     </div>
   );
 }

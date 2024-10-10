@@ -73,7 +73,7 @@ function AuthProvider({ children }) {
 
       return res.data;
     } catch (err) {
-      return err.response.data;
+      return err.response.data || "An error occurred while sing up";
     } finally {
       dispatch({
         type: "notLoading",
@@ -110,11 +110,7 @@ function AuthProvider({ children }) {
 
       return data;
     } catch (err) {
-      dispatch({
-        type: "error",
-        payload: "There was error while logging in. Please try again",
-      });
-      console.log(err);
+      return err;
     } finally {
       dispatch({
         type: "notLoading",
@@ -220,7 +216,7 @@ function AuthProvider({ children }) {
       );
       return res.data;
     } catch (err) {
-      return err.response.data;
+      return err.response.data || "Something went wrong!";
     } finally {
       dispatch({
         type: "notLoading",
@@ -250,7 +246,7 @@ function AuthProvider({ children }) {
 
       return res.data;
     } catch (err) {
-      return err;
+      return err.response.data || "Something went wrong!";
     } finally {
       dispatch({
         type: "notLoading",
@@ -276,7 +272,7 @@ function AuthProvider({ children }) {
       );
       return res;
     } catch (err) {
-      return err.response.data;
+      return err.response.data || "Something went wrong!";
     } finally {
       dispatch({
         type: "notLoading",
@@ -300,7 +296,7 @@ function AuthProvider({ children }) {
       );
       return res.data;
     } catch (err) {
-      return err.response.data;
+      return err.response.data || "Something went wrong!";
     } finally {
       dispatch({
         type: "notLoading",
@@ -324,9 +320,10 @@ function AuthProvider({ children }) {
       if (res.status === 204) {
         Cookie.remove("token");
       }
+
       return res;
     } catch (err) {
-      return err.response.data;
+      return err.response.data || "Something went wrong";
     } finally {
       dispatch({
         type: "notLoading",
@@ -343,7 +340,7 @@ function AuthProvider({ children }) {
       }
     },
     [token]
-  ); // FIXME
+  );
 
   return (
     <AuthContext.Provider

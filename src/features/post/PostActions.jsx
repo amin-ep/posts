@@ -48,7 +48,7 @@ function PostActions({ setOpenModal, postId, likes }) {
           setToggleLike(false);
         }
       } catch (err) {
-        console.log(err);
+        notify("error", "An error occurred while liking this post");
       }
     } else {
       navigate("/login");
