@@ -14,7 +14,6 @@ import {
   HiMiniXMark,
 } from "react-icons/hi2";
 import ModalNavListItem from "./ModalNavListItem";
-// import styles from "./ModalNav.module.css";
 
 ReactModal.setAppElement("#nav");
 

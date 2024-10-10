@@ -11,7 +11,9 @@ export const fetchAllPosts = createAsyncThunk(
       const data = await res.json();
       return data;
     } catch (err) {
-      return rejectWithValue(err?.response?.message || err.message);
+      return rejectWithValue(
+        err?.response?.message || err.message || "not found!"
+      );
     }
   }
 );
@@ -37,14 +39,14 @@ export const createPost = createAsyncThunk(
 
 export const getPostById = createAsyncThunk(
   "post/getPost",
-  async function (id) {
+  async function (id, { rejectWithValue }) {
     try {
       const res = await axios.get(`${BASE_URL}/posts/${id}`);
       return res.data.data.doc;
     } catch (err) {
-      if (err.status === 404) {
-        return "Not found!";
-      }
+      return rejectWithValue(
+        err?.response?.message || err.message || "not found!"
+      );
     }
   }
 );
@@ -67,7 +69,7 @@ export const deletePostById = createAsyncThunk(
 
 export const updatePostById = createAsyncThunk(
   "post/updatePost",
-  async function ({ id, payload }) {
+  async function ({ id, payload }, { rejectWithValue }) {
     try {
       const token = Cookies.get("token");
       const res = await axios.patch(`${BASE_URL}/posts/${id}`, payload, {
@@ -80,7 +82,9 @@ export const updatePostById = createAsyncThunk(
       console.log(res);
       return res.data.data.doc;
     } catch (err) {
-      console.log(err);
+      return rejectWithValue(
+        err.response.message || err.message || "Not found"
+      );
     }
   }
 );

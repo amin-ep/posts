@@ -3,28 +3,28 @@ import styled from "styled-components";
 import PaginationButton from "./PaginationButton";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 
+const ButtonContainer = styled.div`
+  display: grid;
+  justify-content: center;
+  max-width: 90%;
+  grid-gap: 6px;
+  margin: 1.5rem auto;
+  background-color: transparent;
+  overflow: hidden;
+  padding: 0.5rem 1.75rem;
+  align-items: center;
+
+  &::-webkit-scrollbar-thumb {
+    display: none;
+  }
+
+  @media (max-width: 700px) {
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+`;
+
 function Pagination({ totalPages, currentPage, setCurrentPage }) {
-  const ButtonContainer = styled.div`
-    display: grid;
-    justify-content: center;
-    max-width: 90%;
-    grid-gap: 6px;
-    margin: 1.5rem auto;
-    background-color: transparent;
-    overflow: hidden;
-    padding: 0.5rem 1.75rem;
-    align-items: center;
-
-    &::-webkit-scrollbar-thumb {
-      display: none;
-    }
-
-    @media (max-width: 700px) {
-      overflow-x: auto;
-      justify-content: flex-start;
-    }
-  `;
-
   const renderPageButtons = () => {
     const pageButtons = [];
     for (let i = 1; i <= totalPages; i++) {

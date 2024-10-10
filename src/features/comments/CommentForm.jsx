@@ -19,7 +19,7 @@ const Form = styled.form`
   grid-template-areas: "form-header form-header form-header" "comment-input comment-input comment-input" "comment-submit . .";
 `;
 
-function CommentForm({ postId, replyTo }) {
+function CommentForm({ postId, replyTarget }) {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.comment.status === "loading");
 
@@ -44,18 +44,19 @@ function CommentForm({ postId, replyTo }) {
       const payload = new FormData();
       payload.append("post", postId);
       payload.append("text", enteredComment);
-      if (replyTo) {
-        payload.append("parentComment", replyTo);
+      if (replyTarget) {
+        payload.append("parentComment", replyTarget);
       }
 
-      const result = await dispatch(
-        fetchCreateCommentOnPost({ payload, postId })
-      );
-
-      if (result?.meta?.requestStatus === "fulfilled") {
-        reset();
-        notify("success", "Your comment published successfully");
-      }
+      dispatch(fetchCreateCommentOnPost({ payload, postId }))
+        .unwrap()
+        .then(() => {
+          notify("success", "Your comment published successfully");
+          reset();
+        })
+        .catch(() => {
+          notify("error", "An error occurred while sending your comment");
+        });
     }
   };
 

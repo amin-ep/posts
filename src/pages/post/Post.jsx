@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "../../ui/Container/Container";
 import styles from "./Post.module.css";
 import PostImage from "../../features/post/PostImage";
+import NotFound from "../../pages/NotFound/NotFound";
 
 function Post() {
   const [openModal, setOpenModal] = useState(false);
   const { post, status: isLoading } = useSelector((state) => state.post);
+
   const dispatch = useDispatch();
 
   const { id } = useParams();
@@ -19,6 +21,8 @@ function Post() {
   useEffect(() => {
     dispatch(getPostById(id));
   }, [id, dispatch]);
+
+  if (Object.keys(post).length === 0) return <NotFound />;
 
   return (
     <Container
