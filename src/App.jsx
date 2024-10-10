@@ -47,7 +47,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="forgetPassword" element={<ForgetPassword />} />
             <Route path="reset-password/:key" element={<ResetPassword />} />
-            <Route path="email-message" element={<EmailGate />} />
+            <Route path="email-gate" element={<EmailGate />} />
             <Route path="verify/:key" element={<Verify />} />
             <Route path="change-password" element={<ChangePassword />} />
             <Route path="about" element={<About />} />

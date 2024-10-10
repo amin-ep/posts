@@ -50,7 +50,7 @@ function Login() {
       if (result.status === "fail") {
         notify("error", result.message);
       } else {
-        navigate(-1);
+        navigate("/home");
         notify("success", `Welcome to your account ${result.data.username}`);
       }
     },

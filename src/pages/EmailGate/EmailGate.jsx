@@ -4,36 +4,18 @@ import LinkButton from "../../ui/LinkButton";
 import Container from "../../ui/Container/Container";
 
 function EmailGate() {
-  const { signup, loading, forgetPassword } = useAuthentication();
-
-  const currentEmail = sessionStorage.getItem("authEmail");
-  const currentUsername = sessionStorage.getItem("authUsername");
-  const currentPassword = sessionStorage.getItem("authPassword");
-  const previousPageRoute = sessionStorage.getItem("previousRoute");
-
+  const { loading, forgetPassword } = useAuthentication();
   const { notify } = useNotification();
 
-  const handleResendButtonClick = async () => {
-    if (previousPageRoute.split("/")[1] === "signup") {
-      const result = await signup({
-        username: currentUsername,
-        email: currentEmail,
-        password: currentPassword,
-      });
+  const userEmail = sessionStorage.getItem("userEmail");
 
-      if (result.status === "success") {
-        notify("success", result.message);
-      } else {
-        notify("error", result.message);
-      }
-    }
-    if (previousPageRoute === "/forgetPassword") {
-      const result = await forgetPassword(currentEmail);
-      if (result.status === "fail") {
-        notify("success", result.message);
-      } else if (result.status === "success") {
-        notify("error", result.message);
-      }
+  const handleResendButtonClick = async () => {
+    const result = await forgetPassword(userEmail);
+
+    if (result.status === "fail") {
+      notify("error", result.message || "Something went wrong!");
+    } else if (result.status === "success") {
+      notify("success", result.message);
     }
   };
 
@@ -45,11 +27,8 @@ function EmailGate() {
         background="white"
       >
         <h5 className="text-gray-900 text-lg text-center">
-          {previousPageRoute === "/signup"
-            ? `An Email sent to ${currentEmail}. Please checkout your email account and verify your email!`
-            : "This is email message gate"}
-          {previousPageRoute === "/forgetPassword" &&
-            `An Email sent to ${currentEmail}. Please checkout email`}
+          An email sent to {userEmail} checkout your email and reset your
+          password.
         </h5>
 
         <div className="grid grid-cols-1 sm:grid-cols-[180px_1fr] p-4 gap-3">

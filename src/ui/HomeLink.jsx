@@ -2,11 +2,15 @@
 import { Link } from "react-router-dom";
 import { HiHome } from "react-icons/hi2";
 
-function HomeLink({ extraStyles }) {
+function HomeLink({ extraStyles, color = "white" }) {
+  const linkColor = {
+    white: "text-white",
+    indigo: "text-indigo-700",
+  };
   return (
     <Link
       to="/home"
-      className={`${extraStyles} text-white hover:text-stone-900 fixed top-3 left-3`}
+      className={`${linkColor[color]} fixed top-3 left-3 ${extraStyles}`}
     >
       <HiHome size={40} />
     </Link>

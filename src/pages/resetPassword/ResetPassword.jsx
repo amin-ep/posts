@@ -4,9 +4,10 @@ import { HiOutlineEye, HiOutlineEyeSlash } from "react-icons/hi2";
 import ResetPasswordInput from "../../features/resetPassword/ResetPasswordInput";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { useNavigate, useParams } from "react-router-dom";
-import AuthLayout from "../../ui/AuthLayout";
 import HomeLink from "../../ui/HomeLink";
 import { useNotification } from "../../hooks/useNotification";
+import Container from "../../ui/Container/Container";
+import LinkButton from "../../ui/LinkButton";
 
 const validatePassword = (value) =>
   value.trim().length <= 12 && value.trim().length >= 8;
@@ -17,6 +18,7 @@ function ResetPassword() {
   const { loading, recoverPassword } = useAuthentication();
 
   const { key } = useParams();
+
   const navigate = useNavigate();
 
   const {
@@ -49,26 +51,26 @@ function ResetPassword() {
       resetPassword();
       setConfirmPassword("");
       navigate("/login");
+      notify("success", "Password changed successfully");
     } else if (result.status === "fail") {
-      notify("error", result.message);
-      console.log(result);
+      notify("error", result.message || "Something went wrong!");
     }
   };
 
   return (
-    <div
-      className="bg-fixed bg-no-repeat bg-center bg-cover"
-      style={{
-        backgroundImage: `url(${"/public/images/laptop-background.jpg"})`,
-      }}
-    >
-      <AuthLayout background="secondary">
-        <HomeLink />
+    <div className="bg-fixed bg-no-repeat bg-center bg-cover">
+      <HomeLink color="indigo" />
+      <Container size="smallest" extraClasses="rounded-md mt-24">
         <form
-          className="p-10 w-[25rem] rounded-lg shadow-2xl bg-white/40 backdrop-blur-sm shadow-stone-900 flex flex-col gap-4"
+          className="p-10 w-full flex flex-col gap-4"
           onSubmit={handleSubmit}
         >
-          <header className="text-center w-full text-4xl px-6 py-9">
+          <header className="text-center text-gray-800 w-full text-3xl px-6 py-9 flex flex-col items-center gap-10 font-semibold">
+            <img
+              src="/public/images/logo-dark.svg"
+              alt="Logo"
+              className="w-44 h-16 object-cover"
+            />
             <h1>Reset Password</h1>
           </header>
 
@@ -80,7 +82,9 @@ function ResetPassword() {
             >
               {showPassword ? <HiOutlineEye /> : <HiOutlineEyeSlash />}
             </button>
-            <label htmlFor="password">password</label>
+            <label className="text-gray-800 font-semibold" htmlFor="password">
+              Password
+            </label>
             <ResetPasswordInput
               label="password"
               onChange={handlePasswordChange}
@@ -98,7 +102,12 @@ function ResetPassword() {
             )}
           </div>
           <div className="relative">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label
+              className="text-gray-800 font-semibold"
+              htmlFor="confirmPassword"
+            >
+              Confirm Password
+            </label>
             <ResetPasswordInput
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
@@ -113,16 +122,16 @@ function ResetPassword() {
             )}
           </div>
           <div className="my-4">
-            <button
-              className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
+            <LinkButton
               type="submit"
               disabled={!formIsValid}
+              background="indigo"
             >
               {loading ? "Loading..." : "Submit"}
-            </button>
+            </LinkButton>
           </div>
         </form>
-      </AuthLayout>
+      </Container>
     </div>
   );
 }
