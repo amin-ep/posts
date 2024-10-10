@@ -58,6 +58,18 @@ function AuthProvider({ children }) {
     useReducer(reducer, initialState);
   const token = Cookie.get("token");
 
+  const changeCursorStyle = useCallback(() => {
+    if (loading) {
+      document.body.style.cursor = "progress";
+    } else {
+      document.body.style.cursor = "default";
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    changeCursorStyle();
+  }, [changeCursorStyle]);
+
   // SIGNUP
 
   const signup = async (payload) => {
@@ -65,6 +77,7 @@ function AuthProvider({ children }) {
       dispatch({
         type: "isLoading",
       });
+
       const res = await axios.post(`${BASE_URL}/users/signup`, payload, {
         headers: {
           "Content-Type": "multipart/form-data",

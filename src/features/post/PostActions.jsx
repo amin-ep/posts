@@ -20,7 +20,7 @@ import { deletePostById } from "./postSlice";
 function PostActions({ setOpenModal, postId, likes }) {
   const [toggleLike, setToggleLike] = useState(false);
   const { currentUserData, isLoggedIn } = useAuthentication();
-  const { status: isDeleting } = useSelector((state) => state.post);
+  const { status } = useSelector((state) => state.post);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -48,7 +48,12 @@ function PostActions({ setOpenModal, postId, likes }) {
           setToggleLike(false);
         }
       } catch (err) {
-        notify("error", "An error occurred while liking this post");
+        notify(
+          "error",
+          err.response.message ||
+            err.message ||
+            "An error occurred while liking this post"
+        );
       }
     } else {
       navigate("/login");
@@ -98,8 +103,13 @@ function PostActions({ setOpenModal, postId, likes }) {
           <LinkButton background="indigo" to={`/update-post/${postId}`}>
             Update
           </LinkButton>
-          <LinkButton onClick={handleDeletePost} type="button" background="red">
-            {isDeleting === "deleting" ? "Deleting..." : "Delete"}
+          <LinkButton
+            onClick={handleDeletePost}
+            disabled={status === "deleting"}
+            type="button"
+            background="red"
+          >
+            {status === "deleting" ? "Deleting..." : "Delete"}
           </LinkButton>
         </div>
       ) : (

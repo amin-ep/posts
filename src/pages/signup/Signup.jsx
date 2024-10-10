@@ -202,8 +202,12 @@ function Signup() {
         <div
           className={`${styles["form-actions"]} grid grid-cols-2 gap-4 items-center`}
         >
-          <LinkButton disabled={!formIsValid} type="submit" background="indigo">
-            {loading ? "loading" : "Signup"}
+          <LinkButton
+            disabled={!formIsValid || loading}
+            type="submit"
+            background="indigo"
+          >
+            {loading ? "Loading..." : "Signup"}
           </LinkButton>
           <div className="flex items-center justify-center">
             <Link

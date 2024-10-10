@@ -1,5 +1,5 @@
 import Input from "../../ui/Input";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNotification } from "../../hooks/useNotification";
 import { useInput } from "../../hooks/useInput";
@@ -10,16 +10,16 @@ import { HiArrowDownTray } from "react-icons/hi2";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostById, updatePostById } from "../../features/post/postSlice";
 import Textarea from "../../ui/Textarea";
+import NotFound from "../NotFound/NotFound";
 
 function UpdatePost() {
   const [selectedImage, setSelectedImage] = useState("");
-  const [formIsValid, setFormIsValid] = useState(false);
+  // const [formIsValid, setFormIsValid] = useState(false);
 
-  const { post, loading, result } = useSelector((state) => state.post);
+  const { post, status } = useSelector((state) => state.post);
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const { notify } = useNotification();
 
@@ -53,32 +53,24 @@ function UpdatePost() {
     setSelectedImage(file);
   };
 
-  useEffect(() => {
-    if (titleIsValid && descriptionIsValid) {
-      if (
-        enteredTitle !== post?.title ||
-        enteredDescription !== post?.description ||
-        selectedImage !== ""
-      ) {
-        setFormIsValid(true);
-      }
-    }
+  let formIsValid = false;
 
+  if (
+    titleIsValid &&
+    descriptionIsValid &&
+    !titleHasError &&
+    !descriptionHasError
+  ) {
     if (
-      enteredTitle === post?.title &&
-      enteredDescription === post?.description &&
-      selectedImage === ""
+      enteredTitle !== post?.title ||
+      enteredDescription !== post?.description ||
+      selectedImage !== ""
     ) {
-      setFormIsValid(false);
+      formIsValid = true;
+    } else {
+      formIsValid = false;
     }
-  }, [
-    descriptionIsValid,
-    titleIsValid,
-    enteredDescription,
-    enteredTitle,
-    post,
-    selectedImage,
-  ]);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -96,20 +88,21 @@ function UpdatePost() {
     }
 
     dispatch(updatePostById({ id, payload }))
+      .unwrap()
       .then(() => {
-        if (result.statusCode === 200) {
-          notify("success", result.message);
-          navigate(-1);
-        } else {
-          notify("error", result.message);
-        }
+        notify("success", "The post updated successfully");
       })
-      .then(() => dispatch(getPostById(id)));
+      .catch(() => {
+        notify("error", "Cannot update the post");
+        dispatch(getPostById(id));
+      });
   };
 
   useEffect(() => {
     dispatch(getPostById(id));
   }, [dispatch, id]);
+
+  if (Object.keys(post).length === 0) return <NotFound />;
 
   return (
     <Container
@@ -175,8 +168,12 @@ function UpdatePost() {
           )}
         </div>
         <div>
-          <LinkButton type="submit" disabled={!formIsValid} background="indigo">
-            {loading ? "Loading..." : "Update"}
+          <LinkButton
+            type="submit"
+            disabled={!formIsValid || status === "updating"}
+            background="indigo"
+          >
+            {status === "updating" ? "Updating..." : "Update"}
           </LinkButton>
         </div>
       </form>

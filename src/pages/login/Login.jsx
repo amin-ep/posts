@@ -106,7 +106,7 @@ function Login() {
 
             <div className="flex">
               <LinkButton
-                disabled={!formIsValid}
+                disabled={!formIsValid || loading}
                 className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
               >
                 {loading ? "Loading..." : "Login"}

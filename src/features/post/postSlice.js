@@ -154,7 +154,7 @@ const postSlice = createSlice({
 
     builder
       .addCase(updatePostById.pending, (state) => {
-        state.status = "loading";
+        state.status = "updating";
       })
       .addCase(updatePostById.fulfilled, (state, action) => {
         state.status = "idle";

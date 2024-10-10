@@ -124,7 +124,7 @@ function CreatePost() {
           <LinkButton
             type="submit"
             className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
-            disabled={!formIsValid}
+            disabled={!formIsValid || isCreating === "creating"}
             background="indigo"
           >
             {isCreating === "creating" ? "Creating..." : "Create"}

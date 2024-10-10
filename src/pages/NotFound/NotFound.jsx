@@ -12,6 +12,14 @@ const Heading = styled.div`
   -webkit-background-clip: text;
   background-size: cover;
   color: transparent;
+
+  @media (max-width: 846px) {
+    font-size: 200px;
+  }
+
+  @media (max-width: 532px) {
+    font-size: 100px;
+  }
 `;
 
 const Paragraph = styled.p`
@@ -23,7 +31,7 @@ function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-dvh bg-white">
+    <div className="bg-white py-4">
       <Container
         size="small"
         extraClasses="mt-0 text-center"

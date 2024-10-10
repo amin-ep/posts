@@ -124,7 +124,7 @@ function ResetPassword() {
           <div className="my-4">
             <LinkButton
               type="submit"
-              disabled={!formIsValid}
+              disabled={!formIsValid || loading}
               background="indigo"
             >
               {loading ? "Loading..." : "Submit"}
