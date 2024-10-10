@@ -7,6 +7,7 @@ import { getPostById } from "../../features/post/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "../../ui/Container/Container";
 import styles from "./Post.module.css";
+import PostImage from "../../features/post/PostImage";
 
 function Post() {
   const [openModal, setOpenModal] = useState(false);
@@ -19,24 +20,18 @@ function Post() {
     dispatch(getPostById(id));
   }, [id, dispatch]);
 
-  useEffect(() => {
-    if (openModal) document.body.style.overflowY = "hidden";
-    else document.body.style.overflowY = "scroll";
-  }, [openModal]);
-
   return (
     <Container
       background="white"
       size="medium"
       extraClasses={`${styles["card-container"]} rounded-lg`}
     >
-      <div className="flex items-center justify-center">
-        <img
-          src={`http://localhost:3000/static/posts/${post.image}`}
-          alt={post.title}
-          className="max-w-full max-h-full rounded-lg object-cover"
-        />
-      </div>
+      <PostImage
+        title={post?.title}
+        image={post?.image}
+        likeQuantity={post?.likes?.length}
+        commentQuantity={post?.comments?.length}
+      />
       <div className="flex flex-col gap-5 text-stone-900">
         <PostDetails isLoading={isLoading} post={post} />
         <PostActions

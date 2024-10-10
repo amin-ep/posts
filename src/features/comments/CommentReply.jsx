@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { formatDate } from "../../utils/helpers";
 
-function CommentItemReply({ image, username, createdAt, content }) {
+function CommentReply({ image, username, createdAt, content, replyTarget }) {
+  console.log(replyTarget);
   return (
-    <div className="bg-gray-200 grid p-3 w-[50rem] mx-auto rounded-lg max-w-[95%]">
+    <div className="bg-gray-200 grid p-3 w-full mx-auto rounded-lg ">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <img
@@ -27,4 +28,4 @@ function CommentItemReply({ image, username, createdAt, content }) {
   );
 }
 
-export default CommentItemReply;
+export default CommentReply;

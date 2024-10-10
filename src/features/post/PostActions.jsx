@@ -106,34 +106,31 @@ function PostActions({ setOpenModal, postId, likes }) {
         ""
       )}
       <div className="flex justify-end px-6 py-2 text-2xl sm:text-3xl text-stone-900 gap-1">
-        <div>
-          <button
-            onClick={handleOpenComment}
-            className="relative transition-all duration-500 w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center"
-          >
-            <HiOutlineChatBubbleBottomCenterText />
-            <span className="black absolute top-0 left-0 w-12 h-12 rounded-full"></span>
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={handleToggleLike}
-            className={`relative transition-all duration-500 w-12 h-12 rounded-full ${
-              toggleLike ? "bg-red-500" : "bg-gray-200"
-            } flex items-center justify-center overflow-hidden`}
-          >
-            {toggleLike ? (
-              <HiHeart className={`text-white z-[1] ${styles.shake}`} />
-            ) : (
-              <HiOutlineHeart className={styles.shake} />
-            )}
-            <span
-              className={`black absolute top-0 left-0 w-12 h-12 rounded-full bg-red-500 ${
-                toggleLike ? "scale-100" : "scale-0"
-              } transition-all duration-500`}
-            ></span>
-          </button>
-        </div>
+        <button
+          onClick={handleOpenComment}
+          className="relative transition-all duration-500 w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center"
+        >
+          <HiOutlineChatBubbleBottomCenterText />
+          <span className="black absolute top-0 left-0 w-12 h-12 rounded-full"></span>
+        </button>
+
+        <button
+          onClick={handleToggleLike}
+          className={`relative transition-all duration-500 w-12 h-12 rounded-full ${
+            toggleLike ? "bg-red-500" : "bg-gray-200"
+          } flex items-center justify-center overflow-hidden`}
+        >
+          {toggleLike ? (
+            <HiHeart className={`text-white z-[1] ${styles.shake}`} />
+          ) : (
+            <HiOutlineHeart className={styles.shake} />
+          )}
+          <span
+            className={`black absolute top-0 left-0 w-12 h-12 rounded-full bg-red-500 ${
+              toggleLike ? "scale-100" : "scale-0"
+            } transition-all duration-500`}
+          ></span>
+        </button>
       </div>
     </div>
   );

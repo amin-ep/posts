@@ -11,7 +11,7 @@ import styles from "./Comments.module.css";
 ReactModal.setAppElement("#comments");
 
 function Comments({ openModal, onClick, postId }) {
-  const [replyTo, setReplyTo] = useState("");
+  const [replyTarget, setReplyTarget] = useState("");
   const comments = useSelector((state) => state.comment.data);
 
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ function Comments({ openModal, onClick, postId }) {
         </button>
       </header>
       <div className="overflow-y-scroll h-full pb-20 px-2 md:px-14 z-[10]">
-        <CommentForm postId={postId} replyTo={replyTo} />
+        <CommentForm postId={postId} replyTarget={replyTarget} />
         <div className="my-7">
           {comments
             ?.filter((c) => c.parentComment === undefined)
@@ -54,10 +54,10 @@ function Comments({ openModal, onClick, postId }) {
                 content={comment?.text}
                 createdAt={comment?.createdAt}
                 profile={comment?.user.image}
-                setReplyTo={setReplyTo}
+                setReplyTarget={setReplyTarget}
                 id={comment?._id}
                 replies={comment?.replies}
-                replyTo={replyTo}
+                replyTarget={replyTarget}
               />
             ))}
         </div>

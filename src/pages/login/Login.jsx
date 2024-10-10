@@ -5,12 +5,12 @@ import { useInput } from "../../hooks/useInput";
 import { Link, useNavigate } from "react-router-dom";
 import { validateEmail } from "../../utils/validators";
 import { validatePassword } from "../../utils/validators";
-import AuthLayout from "../../ui/AuthLayout";
 import { useNotification } from "../../hooks/useNotification";
 import HomeLink from "../../ui/HomeLink";
 import EyeButton from "../../ui/EyeButton";
 import { useState, useCallback } from "react";
 import Container from "../../ui/Container/Container";
+import LinkButton from "../../ui/LinkButton";
 
 function Login() {
   const { login, loading } = useAuthentication();
@@ -59,7 +59,7 @@ function Login() {
 
   return (
     <>
-      <div className="linear-background h-dvh bg-fixed">
+      <div className="linear-background h-dvh bg-fixed overflow-auto">
         <Container
           size="extra-small"
           extraClasses="mt-0 flex items-center justify-center"
@@ -85,7 +85,6 @@ function Login() {
               onChange={handleEmailChange}
               value={enteredEmail}
               type="text"
-              background="bg-white"
               hasError={emailHasError}
             />
             <div className="relative">
@@ -102,17 +101,16 @@ function Login() {
                 value={enteredPassword}
                 type={showPassword ? "text" : "password"}
                 hasError={passwordHasError}
-                background="bg-white"
               />
             </div>
 
             <div className="flex">
-              <button
+              <LinkButton
                 disabled={!formIsValid}
                 className="bg-stone-800 w-full rounded-full px-5 py-3 text-white disabled:cursor-not-allowed"
               >
                 {loading ? "Loading..." : "Login"}
-              </button>
+              </LinkButton>
             </div>
             <div className="flex flex-col justify-center items-center text-white mt-4">
               <Link to="/forgetPassword">Forget Password?</Link>

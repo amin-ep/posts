@@ -2,7 +2,7 @@ import ChangePasswordInput from "../../features/changePassword/ChangePasswordInp
 import { useInput } from "../../hooks/useInput";
 import { useAuthentication } from "../../contexts/AuthContent";
 import { useNavigate } from "react-router-dom";
-import AuthLayout from "../../ui/AuthLayout";
+import Container from "../../ui/Container/Container";
 import HomeLink from "../../ui/HomeLink";
 import LinkButton from "../../ui/LinkButton";
 import { useNotification } from "../../hooks/useNotification";
@@ -59,17 +59,17 @@ function ChangePassword() {
   };
 
   return (
-    <>
-      <AuthLayout>
+    <div className="linear-background h-dvh bg-fixed bg-cover overflow-auto flex justify-center items-center">
+      <Container background="transparent" extraClasses="mt-0" size="smallest">
         <HomeLink />
         <form
           onSubmit={handleSubmit}
-          className="bg-white/15 backdrop-blur-md w-[25rem] max-w-[95%] shadow-2xl shadow-[rgba(0,0,0,0.35)] rounded-lg z-40"
+          className="bg-white/15 backdrop-blur-md w-full max-w-[95%] shadow-2xl shadow-[rgba(0,0,0,0.35)] rounded-lg z-40"
         >
-          <header className="text-2xl sm:text-3xl text-center p-10 text-white">
+          <header className="text-2xl sm:text-3xl text-center pt-8 pb-2 text-white">
             <h1>Change Password</h1>
           </header>
-          <div className="flex items-center flex-col justify-center gap-4 px-8">
+          <div className="grid grid-cols-1 py-8 gap-4 px-8">
             <div className="flex flex-col w-full">
               <label
                 className="text-white font-semibold text-lg"
@@ -116,24 +116,25 @@ function ChangePassword() {
                 </p>
               )}
             </div>
-            <div className="flex w-full flex-col my-7 gap-4">
+            <div className="grid grid-cols-[60%_auto] gap-4">
               <LinkButton type="submit" disabled={!formIsValid}>
                 {loading ? "Loading..." : "Edit"}
               </LinkButton>
-              <button
+
+              <LinkButton
                 type="button"
                 onClick={() => {
                   navigate(-1);
                 }}
-                className="text-white hover:text-black font-semibold"
+                background="white"
               >
-                Back
-              </button>
+                Cancel
+              </LinkButton>
             </div>
           </div>
         </form>
-      </AuthLayout>
-    </>
+      </Container>
+    </div>
   );
 }
 

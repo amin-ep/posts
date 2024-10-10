@@ -15,7 +15,8 @@ function LinkButton({
       "btn " +
       "bg-stone-800 hover:bg-stone-700 text-white focus:ring-stone-800",
     white:
-      "btn " + "bg-white hover:bg-gray-100 text-stone-900 focus:ring-white",
+      "btn " +
+      "bg-white hover:bg-gray-100 text-stone-900 focus:ring-white hover:text-indigo-800",
     indigo:
       "btn " +
       "bg-indigo-800 hover:bg-indigo-900 text-gray-50 focus:ring-indigo-600",

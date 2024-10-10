@@ -38,7 +38,7 @@ function Footer() {
       </div>
       <section className="h-full p-4">
         <p className="text-gray-800 text-center ">
-          Made with love in IRR &copy; 2024
+          Made with love in IRI &copy; 2024
         </p>
       </section>
     </footer>

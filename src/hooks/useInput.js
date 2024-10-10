@@ -26,28 +26,8 @@ const reducer = (state, action) => {
 
 export function useInput(validateInput, defaultValue) {
   const [{ value, blur }, dispatch] = useReducer(reducer, initialState);
-  // const inputIsValid = validateInput(value);
-  const [inputIsValid, setInputIsValid] = useState(false);
-  // const inputHasError = !inputIsValid && blur;
-  const [inputHasError, setInputHasError] = useState(false);
-
-  useEffect(() => {
-    const validation = validateInput(value);
-
-    if (validation === true) {
-      setInputIsValid(true);
-    } else {
-      setInputIsValid(false);
-    }
-  }, [value, validateInput]);
-
-  useEffect(() => {
-    if (!inputIsValid && blur) {
-      setInputHasError(true);
-    } else {
-      setInputHasError(false);
-    }
-  }, [blur, inputIsValid]);
+  const inputIsValid = validateInput(value);
+  const inputHasError = !inputIsValid && blur;
 
   const handleInputChange = useCallback((e) => {
     dispatch({

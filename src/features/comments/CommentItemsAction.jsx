@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 function CommentItemsAction({
   replies,
   id,
-  setReplyTo,
+  setReplyTarget,
   setOpenReplies,
   openReplies,
   createdAt,
@@ -15,7 +15,7 @@ function CommentItemsAction({
   const allComments = useSelector((state) => state.comment.data);
 
   const handleReply = () => {
-    setReplyTo(id);
+    setReplyTarget(id);
 
     const targetCommentUsername = allComments.find((el) => el._id === id).user
       .username;

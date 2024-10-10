@@ -14,6 +14,11 @@ import styles from "./CommentForm.module.css";
 
 const validateComment = (value) => value.length >= 1 && value.length <= 200;
 
+const Form = styled.form`
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "form-header form-header form-header" "comment-input comment-input comment-input" "comment-submit . .";
+`;
+
 function CommentForm({ postId, replyTo }) {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.comment.status === "loading");
@@ -53,11 +58,6 @@ function CommentForm({ postId, replyTo }) {
       }
     }
   };
-
-  const Form = styled.form`
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas: "form-header form-header form-header" "comment-input comment-input comment-input" "comment-submit . .";
-  `;
 
   return (
     <>

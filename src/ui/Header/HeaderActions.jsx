@@ -52,7 +52,7 @@ function HeaderActions() {
                 to="/account"
                 className="grid grid-cols-[auto_50px] grid-rows-[100%] items-center rounded-full border-2 py-1 pl-1 gap-1 border-gray-200 hover:border-white hover:shadow-2xl hover:shadow-black/30 transition duration-300 min-w-40"
               >
-                <span>{currentUserData?.username}</span>
+                <span className="text-center">{currentUserData?.username}</span>
                 <img
                   src={`http://localhost:3000/static/users/${currentUserData?.image}`}
                   alt="profile"

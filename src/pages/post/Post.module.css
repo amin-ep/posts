@@ -1,7 +1,7 @@
 .card-container {
     display: grid;
-    grid-template-columns: minmax(210px, 400px) 1fr;
-    grid-template-rows: minmax(200px, 300px);
+    grid-template-columns: minmax(210px, 420px) 1fr;
+    grid-template-rows: auto;
     grid-gap: 2rem;
     padding: 1rem;
     align-items: center;

@@ -4,7 +4,7 @@ import { formatDate } from "../../utils/helpers";
 import { HiOutlineCalendarDays } from "react-icons/hi2";
 import CommentItemsAction from "./CommentItemsAction";
 import { useState } from "react";
-import CommentItemReply from "./CommentItemReply";
+import CommentReply from "./CommentReply";
 
 function CommentItem({
   username,
@@ -12,7 +12,7 @@ function CommentItem({
   content,
   profile,
   id,
-  setReplyTo,
+  setReplyTarget,
   replies,
 }) {
   const [openReplies, setOpenReplies] = useState(false);
@@ -46,7 +46,7 @@ function CommentItem({
           <CommentItemsAction
             id={id}
             replies={replies}
-            setReplyTo={setReplyTo}
+            setReplyTarget={setReplyTarget}
             setOpenReplies={setOpenReplies}
             openReplies={openReplies}
             createdAt={createdAt}
@@ -54,7 +54,7 @@ function CommentItem({
           {openReplies && (
             <div className="flex flex-col gap-3 mt-10">
               {replies?.map((reply) => (
-                <CommentItemReply
+                <CommentReply
                   key={reply?._id}
                   createdAt={reply?.createdAt}
                   image={reply?.user.image}

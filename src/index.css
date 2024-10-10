@@ -36,7 +36,7 @@
     }
 
     .btn {
-        @apply bg-stone-800 text-center w-full rounded-full px-5 py-3 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-xl outline-none focus:ring-2
+        @apply bg-stone-800 text-center w-full rounded-md px-5 py-3 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-xl outline-none focus:ring-2
     }
 }
 
